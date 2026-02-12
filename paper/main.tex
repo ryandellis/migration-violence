@@ -1,0 +1,111 @@
+\documentclass[12pt]{article}
+
+% --- Packages ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}       % For publication-quality tables
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}\doublespacing
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{dcolumn}        % Align on decimal points in tables
+
+% --- Paths for \input{} and \includegraphics{} ---
+\graphicspath{{../output/figures/}}
+\makeatletter
+\def\input@path{{../output/tables/}}
+\makeatother
+
+% --- Title ---
+\title{[Paper Title]}
+\author{[Author 1]\thanks{Affiliation. Email.} \and [Author 2]\thanks{Affiliation. Email.}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+[Abstract text.]
+\end{abstract}
+
+\textit{JEL Codes:} [XXX, YYY] \\
+\textit{Keywords:} [keyword1, keyword2]
+
+\newpage
+
+% ==============================================================================
+\section{Introduction}
+\label{sec:intro}
+% ==============================================================================
+
+
+
+% ==============================================================================
+\section{Data}
+\label{sec:data}
+% ==============================================================================
+
+
+
+% Table: Summary Statistics
+% \begin{table}[htbp]
+% \centering
+% \caption{Summary Statistics\label{tab:sumstats}}
+% \input{sumstats.tex}
+% \end{table}
+
+% ==============================================================================
+\section{Empirical Strategy}
+\label{sec:strategy}
+% ==============================================================================
+
+
+
+% ==============================================================================
+\section{Results}
+\label{sec:results}
+% ==============================================================================
+
+
+
+% Table: Main Regression
+% \begin{table}[htbp]
+% \centering
+% \caption{Main Results\label{tab:main}}
+% \input{reg_main.tex}
+% \end{table}
+
+% Figure: Main Figure
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\textwidth]{fig1.pdf}
+% \caption{[Figure Title]\label{fig:main}}
+% \end{figure}
+
+% ==============================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% ==============================================================================
+
+
+
+% ==============================================================================
+% References
+% ==============================================================================
+\newpage
+\bibliographystyle{aer}
+\bibliography{references}
+
+% ==============================================================================
+% Appendix (uncomment when needed)
+% ==============================================================================
+% \newpage
+% \appendix
+% \section{Additional Results}
+% \label{app:additional}
+
+\end{document}

@@ -1,0 +1,3 @@
+Code:  MIT License — Copyright (c) [YEAR] [AUTHORS]
+Data:  See data/raw/README.md for individual dataset licenses.
+Paper: All rights reserved by the authors.
