@@ -1,0 +1,27 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                &\multicolumn{2}{c}{External (Lenient)}&\multicolumn{2}{c}{External (Restrictive)}&\multicolumn{2}{c}{Internal}\\\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+                &\multicolumn{1}{c}{(1)}   &\multicolumn{1}{c}{(2)}   &\multicolumn{1}{c}{(3)}   &\multicolumn{1}{c}{(4)}   &\multicolumn{1}{c}{(5)}   &\multicolumn{1}{c}{(6)}   \\
+\midrule
+            &            &            &            &            &            &            \\
+Monthly 5km exposures&    1.055   &            &    1.271***&            &    1.101   &            \\
+                &  (0.040)   &            &  (0.024)   &            &  (0.107)   &            \\
+$(5km Exposure)^2$&    1.000   &            &    0.997***&            &    0.995   &            \\
+                &  (0.001)   &            &  (0.001)   &            &  (0.005)   &            \\
+Monthly 20km exposures&            &    1.058***&            &    1.143***&            &    1.057***\\
+                &            &  (0.012)   &            &  (0.019)   &            &  (0.022)   \\
+$(20km Exposure)^2$&            &    0.999***&            &    0.999***&            &    0.999*  \\
+                &            &  (0.000)   &            &  (0.000)   &            &  (0.000)   \\
+\midrule
+dy/dx           &   0.0012   &   0.0013   &   0.0015   &   0.0008   &   0.0056   &   0.0032   \\
+$\epsilon$      &    0.089   &    0.633   &    0.410   &    1.513   &    0.156   &    0.591   \\
+Avg. monthly exp.&     1.74   &    11.52   &     1.74   &    11.52   &     1.74   &    11.52   \\
+Observations    &    12532   &    12532   &    12532   &    12532   &    12532   &    12532   \\
+Migrants classified&      333   &      333   &       83   &       83   &      871   &      871   \\
+\% classified   &     2.66   &     2.66   &     0.66   &     0.66   &     6.95   &     6.95   \\
+\bottomrule
+\end{tabular}
+}
+

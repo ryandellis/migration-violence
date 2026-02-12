@@ -1,0 +1,24 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                &\multicolumn{2}{c}{External (Lenient)}&\multicolumn{2}{c}{External (Restrictive)}&\multicolumn{2}{c}{Internal}\\\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+                &\multicolumn{1}{c}{(1)}   &\multicolumn{1}{c}{(2)}   &\multicolumn{1}{c}{(3)}   &\multicolumn{1}{c}{(4)}   &\multicolumn{1}{c}{(5)}   &\multicolumn{1}{c}{(6)}   \\
+\midrule
+            &            &            &            &            &            &            \\
+Monthly exp., 5km&    0.061***&            &    0.118***&            &    0.002   &            \\
+                &  (0.011)   &            &  (0.018)   &            &  (0.011)   &            \\
+Monthly exp., 20km&            &    0.004** &            &    0.017***&            &   -0.001   \\
+                &            &  (0.002)   &            &  (0.001)   &            &  (0.002)   \\
+Mean ROG (km)   &   -0.001   &   -0.001   &   -0.003   &   -0.003   &    0.012***&    0.012***\\
+                &  (0.001)   &  (0.001)   &  (0.003)   &  (0.002)   &  (0.001)   &  (0.001)   \\
+\midrule
+dy/dx           &   0.0016   &   0.0001   &   0.0008   &   0.0001   &   0.0001   &  -0.0001   \\
+$\epsilon$      &    0.102   &    0.044   &    0.203   &    0.190   &    0.004   &   -0.015   \\
+Avg. monthly exp.&     1.74   &    11.52   &     1.74   &    11.52   &     1.74   &    11.52   \\
+Observations    &    12532   &    12532   &    12532   &    12532   &    12532   &    12532   \\
+Migrants classified&      333   &      333   &       83   &       83   &      871   &      871   \\
+\% classified   &     2.66   &     2.66   &     0.66   &     0.66   &     6.95   &     6.95   \\
+\bottomrule
+\end{tabular}
+}

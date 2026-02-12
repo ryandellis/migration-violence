@@ -1,0 +1,40 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{2}{c}}
+\toprule
+                &\multicolumn{1}{c}{(1)}   &\multicolumn{1}{c}{(2)}   \\
+\midrule
+                &            &            \\
+SIGACTs 5km     &    1.061***&            \\
+                &  (0.014)   &            \\
+1-2 killed      &    0.757***&            \\
+                &  (0.062)   &            \\
+3-5 killed      &    1.143   &            \\
+                &  (0.107)   &            \\
+6-9 killed      &    1.387***&            \\
+                &  (0.171)   &            \\
+10+ killed      &    1.672***&            \\
+                &  (0.115)   &            \\
+SIGACTs 20km    &            &    1.003   \\
+                &            &  (0.003)   \\
+1-2 killed      &            &    0.664***\\
+                &            &  (0.071)   \\
+3-5 killed      &            &    1.326***\\
+                &            &  (0.139)   \\
+6-9 killed      &            &    1.754** \\
+                &            &  (0.405)   \\
+10+ killed      &            &    1.947***\\
+                &            &  (0.270)   \\
+(max) meanrog   &    1.000   &    1.000   \\
+                &  (0.003)   &  (0.004)   \\
+\midrule
+Dependent var. mean&   0.0266   &   0.0266   \\
+$\Delta$ over baseline (1-2)&  -0.2355   &  -0.3395   \\
+$\Delta$ over baseline (3-5)&   0.1129   &   0.2336   \\
+$\Delta$ over baseline (6-9)&   0.2764   &   0.4652   \\
+$\Delta$ over baseline (10+)&   0.4343   &   0.5517   \\
+Observations    & 12532.00   & 12532.00   \\
+Geographic controls&      YES   &      YES   \\
+\bottomrule
+\end{tabular}
+}

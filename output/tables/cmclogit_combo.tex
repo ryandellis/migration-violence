@@ -1,0 +1,28 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\toprule
+                &\multicolumn{2}{c}{Lenient Model}&\multicolumn{2}{c}{Restrictive Model}\\\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+                &\multicolumn{1}{c}{(1)}   &\multicolumn{1}{c}{(2)}   &\multicolumn{1}{c}{(3)}   &\multicolumn{1}{c}{(4)}   \\
+\midrule
+Internal        &            &            &            &            \\
+Monthly 5km exposures&    0.009   &            &    0.018   &            \\
+                &  (0.025)   &            &  (0.028)   &            \\
+Monthly 20km exposures&            &    0.004   &            &    0.005   \\
+                &            &  (0.006)   &            &  (0.006)   \\
+Mean ROG (km)   &    0.017***&    0.017***&    0.017***&    0.017***\\
+                &  (0.002)   &  (0.002)   &  (0.002)   &  (0.002)   \\
+\midrule
+External        &            &            &            &            \\
+Monthly 5km exposures&    0.063***&            &    0.179***&            \\
+                &  (0.015)   &            &  (0.021)   &            \\
+Monthly 20km exposures&            &    0.002   &            &    0.026***\\
+                &            &  (0.003)   &            &  (0.005)   \\
+Mean ROG (km)   &    0.002   &    0.002   &    0.002   &    0.001   \\
+                &  (0.004)   &  (0.003)   &  (0.005)   &  (0.006)   \\
+\midrule
+Avg. monthly exp.&     1.74   &    11.52   &     1.74   &    11.52   \\
+Observations    &    37596   &    37596   &    37596   &    37596   \\
+\bottomrule
+\end{tabular}
+}

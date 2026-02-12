@@ -1,0 +1,31 @@
+/*==================================================
+project:       Generate dataset of modal home locations
+Author:        Ryan Ellis 
+E-email:       ryan.ellis@gatech.edu
+url:           
+Dependencies:  
+----------------------------------------------------
+Creation Date:     2 Jul 2024 - 15:32:12
+Modification Date:   
+Do-file version:    01
+References:          
+Output:             
+==================================================*/
+
+/*==================================================
+              0: Program set up
+==================================================*/
+version 18
+drop _all
+cd "$AFG_CDR"
+use processed/VFD_baseline_unrestricted, replace
+
+sort loc
+
+by loc: egen loc_freq = count(loc)
+gen loc_prop = loc_freq / _N
+
+collapse slat slon loc_freq loc_prop, by(loc)
+
+save processed/uniquelocations, replace
+export delimited processed/uniquelocations, replace

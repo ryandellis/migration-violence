@@ -1,0 +1,24 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\toprule
+                &\multicolumn{2}{c}{External (Lenient)}&\multicolumn{2}{c}{Internal}\\\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+                &\multicolumn{1}{c}{(1)}   &\multicolumn{1}{c}{(2)}   &\multicolumn{1}{c}{(3)}   &\multicolumn{1}{c}{(4)}   \\
+\midrule
+            &            &            &            &            \\
+(max) k\_tagpermon&    1.087***&            &    0.381   &            \\
+                &  (0.294)   &            &  (1.296)   &            \\
+(max) k\_tag20permon&            &    3.523***&            &    2.896** \\
+                &            &  (0.781)   &            &  (1.199)   \\
+(max) meanrog   &   -0.000   &   -0.000   &    0.017***&    0.017***\\
+                &  (0.002)   &  (0.002)   &  (0.002)   &  (0.002)   \\
+\midrule
+dy/dx           &   0.0251   &   0.0805   &   0.0222   &   0.1688   \\
+$\epsilon$      &    0.005   &    0.025   &    0.002   &    0.020   \\
+Avg. monthly exp.&     0.01   &     0.01   &     0.01   &     0.01   \\
+Observations    &    12532   &    12532   &    12532   &    12532   \\
+Migrants classified&      333   &      333   &      871   &      871   \\
+\% classified   &     2.66   &     2.66   &     6.95   &     6.95   \\
+\bottomrule
+\end{tabular}
+}

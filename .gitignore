@@ -67,3 +67,17 @@ Thumbs.db
 # === Overleaf clone (if adjacent) ===
 # Uncomment if you keep the Overleaf clone inside this repo:
 # overleaf-*/
+
+# === Project-specific ===
+# Archive of old/cut material
+archive/
+
+# GIS project files
+data/gis/
+
+# Paper notes (brainstorms, recordings, etc.)
+paper/notes/
+
+# Old .bib files (before Zotero migration)
+paper/references_old.bib
+paper/jmp_old.bib

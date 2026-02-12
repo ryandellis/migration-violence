@@ -1,0 +1,25 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{6}{c}}
+\toprule
+                &\multicolumn{2}{c}{External (Lenient)}&\multicolumn{2}{c}{External (Restrictive)}&\multicolumn{2}{c}{Internal}\\\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}
+                &\multicolumn{1}{c}{(1)}   &\multicolumn{1}{c}{(2)}   &\multicolumn{1}{c}{(3)}   &\multicolumn{1}{c}{(4)}   &\multicolumn{1}{c}{(5)}   &\multicolumn{1}{c}{(6)}   \\
+\midrule
+                &            &            &            &            &            &            \\
+Monthly 5km exposures&    1.064***&            &    1.194***&            &    1.018   &            \\
+                &  (0.017)   &            &  (0.023)   &            &  (0.028)   &            \\
+Monthly 20km exposures&            &    1.002   &            &    1.026***&            &    1.004   \\
+                &            &  (0.003)   &            &  (0.006)   &            &  (0.006)   \\
+Mean ROG (km)   &    1.000   &    1.000   &    0.999   &    0.997   &    1.018***&    1.018***\\
+                &  (0.003)   &  (0.003)   &  (0.004)   &  (0.003)   &  (0.002)   &  (0.002)   \\
+\midrule
+Dependent var. mean&   0.0266   &   0.0266   &   0.0066   &   0.0066   &   0.0695   &   0.0695   \\
+Average marginal effect&   0.0014   &   0.0000   &   0.0011   &   0.0002   &   0.0011   &   0.0003   \\
+$\Delta$ over baseline&   0.0536   &   0.0016   &   0.1630   &   0.0243   &   0.0151   &   0.0037   \\
+Elasticity      &   0.1039   &   0.0210   &   0.3030   &   0.2951   &   0.0293   &   0.0469   \\
+Mean monthly exposure&     1.74   &    11.52   &     1.74   &    11.52   &     1.74   &    11.52   \\
+Observations    &    12532   &    12532   &    12532   &    12532   &    12532   &    12532   \\
+Geographic controls&      YES   &      YES   &      YES   &      YES   &      YES   &      YES   \\
+\bottomrule
+\end{tabular}
+}

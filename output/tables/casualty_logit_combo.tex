@@ -1,0 +1,25 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{4}{c}}
+\toprule
+                &\multicolumn{2}{c}{External (Lenient)}&\multicolumn{2}{c}{Internal}\\\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+                &\multicolumn{1}{c}{(1)}   &\multicolumn{1}{c}{(2)}   &\multicolumn{1}{c}{(3)}   &\multicolumn{1}{c}{(4)}   \\
+\midrule
+                &            &            &            &            \\
+Monthly High-Casualty Exposures (5km)&    1.907***&            &    0.268   &            \\
+                &  (0.440)   &            &  (0.225)   &            \\
+Monthly High-Casualty Exposures (20km)&            &    4.730***&            &    1.314   \\
+                &            &  (1.128)   &            &  (0.671)   \\
+Mean ROG (km)   &    1.000   &    0.999   &    1.017***&    1.017***\\
+                &  (0.002)   &  (0.002)   &  (0.002)   &  (0.002)   \\
+\midrule
+Dependent var. mean&   0.0266   &   0.0266   &   0.0695   &   0.0695   \\
+Average marginal effect&   0.0149   &   0.0356   &  -0.0768   &   0.0160   \\
+$\Delta$ over baseline&   0.5610   &   1.3383   &  -1.1051   &   0.2295   \\
+Elasticity      &   0.0161   &   0.0619   &  -0.0318   &   0.0105   \\
+Mean monthly exposure&     0.03   &     0.04   &     0.03   &     0.04   \\
+Observations    &    12532   &    12532   &    12532   &    12532   \\
+Geographic controls&      YES   &      YES   &      YES   &      YES   \\
+\bottomrule
+\end{tabular}
+}
