@@ -15,15 +15,13 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
+do "_config.do"
 
 
 /*==================================================
               1: 
 ==================================================*/
-import delimited "C:\Users\ryand\Dropbox (GaTech)\02_PAPERS\00.JMP\JMP\zz_old\data\GTD_event_selection.csv", clear
+import delimited "$gtd/GTD_event_selection.csv", clear
 keep if country_txt == "Afghanistan"
 keep if iyear > 2009
 keep if iyear < 2013
@@ -58,8 +56,8 @@ order event date w_tag k_tag joint both nkill nwound latitude longitude provstat
 
 drop iyear imonth iday country_txt
 
-save processed/gtd_casualty_all, replace
+save "$derived/gtd_casualty_all", replace
 
-export delimited using "C:\Users\ryand\Dropbox (GaTech)\02_PAPERS\00.JMP\JMP\analysis\processed\gtd_casualty_all.csv"
+export delimited using "$derived/gtd_casualty_all.csv"
 
 

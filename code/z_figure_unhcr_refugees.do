@@ -16,10 +16,8 @@ Output:
               0: Program set up
 ==================================================*/
 
-drop _all
-
-cd "C:\Users\ellisrya\OneDrive - Seton Hall University\01.research\JMP\analysis"
-use processed/unhcr_totals, clear
+do "_config.do"
+use "$derived/unhcr_totals", clear
 
 color_style pissaro, n(4)
 font_style Arial Narrow
@@ -37,7 +35,7 @@ replace refugees = refugees/1000000
 
 
 tw (tsline refugees if id==1, lwidth(thick)) (tsline refugees if id==2, lwidth(thick) lpattern(longdash)) (tsline refugees if id==3, lwidth(thick) lpattern(shortdash)), xtitle("") ytitle("") legend(label(1 "Iran") label(2 "Pakistan") label(3 "Tajikistan") position(6) rows(1) size(medium))
-gr export results/figures/unhcr_refugees_tsline.png, replace
+gr export "$figures/unhcr_refugees_tsline.png", replace
 
 
 

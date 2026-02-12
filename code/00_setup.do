@@ -7,7 +7,7 @@
 
 do "_config.do"
 
-local packages estout reghdfe ftools
+local packages estout reghdfe ftools geodist gtools combomarginsplot blindschemes coefplot
 
 foreach pkg of local packages {
     capture which `pkg'
@@ -21,7 +21,7 @@ foreach pkg of local packages {
 }
 
 * reghdfe requires ftools to be loaded
-reghdfe, compile
+cap reghdfe, compile
 ftools, compile
 
 di _n "Setup complete. All packages installed to: ${root}/code/libraries/stata/"

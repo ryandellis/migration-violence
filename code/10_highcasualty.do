@@ -15,18 +15,16 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
+do "_config.do"
 
 
 /*==================================================
               1: 
 ==================================================*/
 
-use processed/VFD_restricted_1monthmin_with_migration
-
-merge 1:1 id date using processed/all_highcasualty_clean
+use "$derived/VFD_restricted_1monthmin_with_migration"
+capture drop _merge
+merge 1:1 id date using "$derived/all_highcasualty_clean"
 
 gen region = .
 replace region = 1 if provid==14 | provid==16 | provid==21 | provid==22 | provid==28 | provid==29 
@@ -134,7 +132,7 @@ eststo internalk20: logit intevermig joint20permon count_obs meanrog i.mreg, clu
 	scalar drop _all
 
 
-esttab externalk5 externalk20 internalk5 internalk20 using results/tables/casualty_logit_combo.tex, replace style(tex) ///
+esttab externalk5 externalk20 internalk5 internalk20 using "$tables/casualty_logit_combo.tex", replace style(tex) ///
 label cells(b(star fmt(3)) se(par fmt(3))) starlevels(* 0.10 ** 0.05 *** 0.01) ///
 keep(jointpermon joint20permon meanrog) order(jointpermon joint20permon meanrog) collabels(none) compress noobs nonotes nomtitle booktabs eqlabels("") eform ///
 scalars("samp_mean Dependent var. mean" "marg Average marginal effect" "delta $\Delta$ over baseline" "elas Elasticity" "x_mean Mean monthly exposure" "bigN Observations" "geos Geographic controls" ) sfmt(4 4 4 4 2 0 0) ///
@@ -203,7 +201,7 @@ eststo internalk20: logit intevermig k_tag20permon count_obs meanrog i.mreg, clu
 	estadd scalar x_mean = r(mean)	
 
 
-esttab externalk5 externalk20 internalk5 internalk20 using results/tables/casualty_logit_combo_ktag.tex, replace style(tex) ///
+esttab externalk5 externalk20 internalk5 internalk20 using "$tables/casualty_logit_combo_ktag.tex", replace style(tex) ///
 label cells(b(star fmt(3)) se(par fmt(3))) starlevels(* 0.10 ** 0.05 *** 0.01) ///
 keep(k_tagpermon k_tag20permon meanrog) order(k_tagpermon k_tag20permon meanrog) collabels(none) compress noobs nonotes nomtitle booktabs ///
 scalars("marg dy/dx" "elas $\epsilon$" "x_mean Avg. monthly exp." "bigN Observations" "liln Migrants classified" "samp_mean \% classified") sfmt(4 3 2 0 0 2) ///
@@ -268,7 +266,7 @@ eststo internalk20: logit intevermig w_tag20permon count_obs meanrog i.mreg, clu
 	estadd scalar x_mean = r(mean)	
 
 
-esttab externalk5 externalk20 internalk5 internalk20 using results/tables/casualty_logit_combo_wtag.tex, replace style(tex) ///
+esttab externalk5 externalk20 internalk5 internalk20 using "$tables/casualty_logit_combo_wtag.tex", replace style(tex) ///
 label cells(b(star fmt(3)) se(par fmt(3))) starlevels(* 0.10 ** 0.05 *** 0.01) ///
 keep(w_tagpermon w_tag20permon meanrog) order(w_tagpermon w_tag20permon meanrog) collabels(none) compress noobs nonotes nomtitle booktabs ///
 scalars("marg dy/dx" "elas $\epsilon$" "x_mean Avg. monthly exp." "bigN Observations" "liln Migrants classified" "samp_mean \% classified") sfmt(4 3 2 0 0 2) ///
@@ -291,7 +289,7 @@ logit intevermig jointpermon count_obs meanrog i.mreg, cluster(mprov)
 margins, at(jointpermon=(0(.1)2)) saving(file2, replace)
 marginsplot
 combomp file1 file2, recastci(rline) ciopt(lpattern(dash) lcolor(%25)) title("") labels("External (Lenient)" "Internal") legend(position(6) rows(1) size(medium))
-graph export results/figures/highcasualty_levels.png, replace
+graph export "$figures/highcasualty_levels.png", replace
 
 est clear
 logit potmig joint20permon count_obs meanrog i.mreg, cluster(mprov)
@@ -302,7 +300,7 @@ logit intevermig joint20permon count_obs meanrog i.mreg, cluster(mprov)
 margins, at(joint20permon=(0(.1)2)) saving(file2, replace)
 marginsplot
 combomp file1 file2, recastci(rline) ciopt(lpattern(dash) lcolor(%25)) title("") labels("External (Lenient)" "Internal") legend(position(6) rows(1) size(medium))
-graph export results/figures/highcasualty20_levels.png, replace
+graph export "$figures/highcasualty20_levels.png", replace
 
 
 

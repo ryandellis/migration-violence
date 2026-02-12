@@ -1,0 +1,24 @@
+/*==================================================
+project:       
+Author:        Ryan Ellis 
+----------------------------------------------------
+Creation Date:     1 Jul 2024 - 15:52:21
+==================================================*/
+
+/*==================================================
+              0: Program set up
+==================================================*/
+
+do "_config.do"
+use data/VFD_data/fullpanel_analysis, clear
+
+keep identityid longitude latitude district province cogcf anon_mobilenumber cdr_month startdate enddate date week ym num_dates df_5km date_id ied_5km idf_5km safire_5km ied_fc_5km df_10km ied_10km idf_10km safire_10km ied_fc_10km df_20km ied_20km idf_20km safire_20km ied_fc_20km violence_all_5km d_violence_all_5km violence_5km d_violence_5km d_df_5km d_ied_5km d_idf_5km d_safire_5km d_ied_fc_5km d_df_10km d_ied_10km d_idf_10km d_safire_10km d_ied_fc_10km violence_all_20km d_violence_all_20km violence_20km d_violence_20km d_df_20km d_ied_20km d_idf_20km d_safire_20km d_ied_fc_20km
+
+compress
+
+save processed/VFD_data_clean, replace
+
+exit
+/* End of do-file */
+
+><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><

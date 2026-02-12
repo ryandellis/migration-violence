@@ -15,10 +15,8 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
-use processed/VFD_baseline_unrestricted, replace
+do "_config.do"
+use "$derived/VFD_baseline_unrestricted", replace
 
 sort loc
 
@@ -27,5 +25,5 @@ gen loc_prop = loc_freq / _N
 
 collapse slat slon loc_freq loc_prop, by(loc)
 
-save processed/uniquelocations, replace
-export delimited processed/uniquelocations, replace
+save "$derived/uniquelocations", replace
+export delimited "$derived/uniquelocations", replace

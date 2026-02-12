@@ -15,10 +15,8 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
-use processed/VFD_restricted_1monthmin_with_migration, clear
+do "_config.do"
+use "$derived/VFD_restricted_1monthmin_with_migration", clear
 /*==================================================
               1: basic setup
 ==================================================*/
@@ -165,7 +163,7 @@ eststo internal20: logit intevermig vpermon_20km meanrog count_obs i.mreg, clust
 	quietly su vpermon_20km
 	estadd scalar x_mean = r(mean)	
 
-esttab lax5 lax20 strict5 strict20 internal5 internal20 using results/tables/simple_logit_combo_ctrls.tex, replace style(tex) ///
+esttab lax5 lax20 strict5 strict20 internal5 internal20 using "$tables/simple_logit_combo_ctrls.tex", replace style(tex) ///
 label cells(b(star fmt(3)) se(par fmt(3))) starlevels(* 0.10 ** 0.05 *** 0.01) ///
 keep(vpermon_5km vpermon_20km meanrog) order(vpermon_5km vpermon_20km meanrog) collabels(none) compress noobs nonotes nomtitle booktabs ///
 scalars("marg dy/dx" "elas $\epsilon$" "x_mean Avg. monthly exp." "bigN Observations" "liln Migrants classified" "samp_mean \% classified") sfmt(4 3 2 0 0 2) ///
@@ -183,7 +181,7 @@ logit potmig2 vpermon_5km meanrog count_obs i.mreg, cluster(mprov)
 margins, at(vpermon_5km=(0(1)30)) saving(file2, replace)
 
 combomp file1 file2, recastci(rline) ciopt(lpattern(dash) lcolor(%25)) title("") labels("Lenient Model" "Restrictive Model") legend(position(6) rows(1) size(medium))
-graph export results/figures/migration_levels_ctrls.png, replace
+graph export "$figures/migration_levels_ctrls.png", replace
 ****************************
 est clear
 logit intevermig vpermon_5km meanrog count_obs i.mreg, cluster(mprov)
@@ -194,7 +192,7 @@ logit dropout vpermon_5km meanrog count_obs i.mreg, cluster(mprov)
 margins, at(vpermon_5km=(0(1)30)) saving(file2, replace)
 
 combomp file1 file2, recastci(rline) ciopt(lpattern(dash) lcolor(%25)) title("") labels("Internal Migration" "Attrition") legend(position(6) rows(1) size(medium))
-graph export results/figures/nonmig_levels_ctrls.png, replace
+graph export "$figures/nonmig_levels_ctrls.png", replace
 
 
 *----------2.2:
@@ -208,7 +206,7 @@ logit potmig2 vpermon_5km meanrog count_obs i.mreg, cluster(mprov)
 margins, eyex(vpermon_5km) at(vpermon_5km=(0(1)30)) saving(file2, replace)
 
 combomp file1 file2, recastci(rline) ciopt(lpattern(dash) lcolor(%25)) title("") labels("Lenient Model" "Restrictive Model") legend(position(6) rows(1) size(medium))
-graph export results/figures/migration_elasticities_ctrls.png, replace
+graph export "$figures/migration_elasticities_ctrls.png", replace
 
 
 *********
@@ -221,7 +219,7 @@ logit dropout vpermon_5km meanrog count_obs i.mreg, cluster(mprov)
 margins, eyex(vpermon_5km) at(vpermon_5km=(0(1)30)) saving(file2, replace)
 
 combomp file1 file2, recastci(rline) ciopt(lpattern(dash) lcolor(%25)) title("") labels("Internal Migration" "Attrition") legend(position(6) rows(1) size(medium))
-graph export results/figures/nonmig_elasticities_ctrls.png, replace
+graph export "$figures/nonmig_elasticities_ctrls.png", replace
 /*==================================================
               3: marginplots, dydx
 ==================================================*/
@@ -234,7 +232,7 @@ logit potmig2 vpermon_5km meanrog count_obs i.mreg, cluster(mprov)
 margins, dydx(vpermon_5km) at(vpermon_5km=(0(1)30)) saving(file2, replace)
 
 combomp file1 file2, recastci(rline) ciopt(lpattern(dash) lcolor(%25)) title("") labels("Lenient Model" "Restrictive Model") legend(position(6) rows(1) size(medium))
-graph export results/figures/migration_dydx_ctrls.png, replace
+graph export "$figures/migration_dydx_ctrls.png", replace
 
 
 *********
@@ -247,7 +245,7 @@ logit dropout vpermon_5km meanrog count_obs i.mreg, cluster(mprov)
 margins, dydx(vpermon_5km) at(vpermon_5km=(0(1)30)) saving(file2, replace)
 
 combomp file1 file2, recastci(rline) ciopt(lpattern(dash) lcolor(%25)) title("") labels("Internal Migration" "Attrition") legend(position(6) rows(1) size(medium))
-graph export results/figures/nonmig_dydx_ctrls.png, replace
+graph export "$figures/nonmig_dydx_ctrls.png", replace
 
 
 
@@ -350,7 +348,7 @@ eststo internal20: logit intevermig iedpermon_20km meanrog count_obs i.mreg, clu
 	quietly su iedpermon_20km
 	estadd scalar x_mean = r(mean)	
 
-esttab lax5 lax20 strict5 strict20 internal5 internal20 using results/tables/simple_logit_combo_ied.tex, replace style(tex) ///
+esttab lax5 lax20 strict5 strict20 internal5 internal20 using "$tables/simple_logit_combo_ied.tex", replace style(tex) ///
 label cells(b(star fmt(3)) se(par fmt(3))) starlevels(* 0.10 ** 0.05 *** 0.01) ///
 keep(iedpermon_5km iedpermon_20km meanrog) order(iedpermon_5km iedpermon_20km meanrog) collabels(none) compress noobs nonotes nomtitle booktabs ///
 scalars("marg dy/dx" "elas $\epsilon$" "x_mean Avg. monthly exp." "bigN Observations" "liln Migrants classified" "samp_mean \% classified") sfmt(4 3 2 0 0 2) ///
@@ -446,7 +444,7 @@ eststo internal20: poisson intevermig vpermon_20km meanrog count_obs i.mreg, clu
 	quietly su vpermon_20km
 	estadd scalar x_mean = r(mean)	
 
-esttab lax5 lax20 strict5 strict20 internal5 internal20 using results/tables/simple_poisson_combo_ctrls.tex, replace style(tex) ///
+esttab lax5 lax20 strict5 strict20 internal5 internal20 using "$tables/simple_poisson_combo_ctrls.tex", replace style(tex) ///
 label cells(b(star fmt(3)) se(par fmt(3))) starlevels(* 0.10 ** 0.05 *** 0.01) ///
 keep(vpermon_5km vpermon_20km meanrog) order(vpermon_5km vpermon_20km meanrog) collabels(none) compress noobs nonotes nomtitle booktabs ///
 scalars("marg dy/dx" "elas $\epsilon$" "x_mean Avg. monthly exp." "bigN Observations" "liln Migrants classified" "samp_mean \% classified") sfmt(4 3 2 0 0 2) ///
@@ -459,9 +457,9 @@ estimates clear
 
 
 *sanity check table
-dtable vpermon_5km vpermon_20km, by(potmig, nototals test) export(results/tables/sanitycheck.tex, tableonly replace) 
-dtable vpermon_5km vpermon_20km, by(potmig2, nototals test) export(results/tables/sanitycheck.tex, append) 
-dtable vpermon_5km vpermon_20km, by(intevermig, nototals test) export(results/tables/sanitycheck.tex, append) 
+dtable vpermon_5km vpermon_20km, by(potmig, nototals test) export("$tables/sanitycheck.tex", tableonly replace) 
+dtable vpermon_5km vpermon_20km, by(potmig2, nototals test) export("$tables/sanitycheck.tex", append) 
+dtable vpermon_5km vpermon_20km, by(intevermig, nototals test) export("$tables/sanitycheck.tex", append) 
 
 logit potmig vpermon_5km meanrog count_obs i.mreg, cluster(mprov)
 margins, dydx(vpermon_5km)
@@ -568,7 +566,7 @@ eststo internal20: logit intevermig vpermon_20km sqvpm20 meanrog count_obs i.mre
 	quietly su vpermon_20km
 	estadd scalar x_mean = r(mean)	
 
-esttab lax5 lax20 strict5 strict20 internal5 internal20 using results/tables/quadtratic.tex, replace style(tex) ///
+esttab lax5 lax20 strict5 strict20 internal5 internal20 using "$tables/quadtratic.tex", replace style(tex) ///
 label cells(b(star fmt(3)) se(par fmt(3))) starlevels(* 0.10 ** 0.05 *** 0.01) ///
 keep(vpermon_5km vpermon_20km sqvpm5 sqvpm20) order(vpermon_5km sqvpm5 vpermon_20km sqvpm20) collabels(none) compress noobs nonotes nomtitle booktabs ///
 scalars("marg dy/dx" "elas $\epsilon$" "x_mean Avg. monthly exp." "bigN Observations" "liln Migrants classified" "samp_mean \% classified") sfmt(4 3 2 0 0 2) ///

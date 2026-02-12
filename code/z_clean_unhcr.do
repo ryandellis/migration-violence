@@ -15,23 +15,21 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
+do "_config.do"
 
 
 /*==================================================
               1: 
 ==================================================*/
 
-import delimited data/unhcr_query/csv_edit
+import delimited "$unhcr/csv_edit"
 
 drop countryoforigin countryoforiginiso countryofasylumiso
 
 // rename variables for consistency and ease of use:
 ren (countryofasylum refugeesunderunhcrsmandate asylumseekers idpsofconcerntounhcr) (country refugees asylees idps)
 
-save processed/unhcr_totals, replace
+save "$derived/unhcr_totals", replace
 
 exit
 /* End of do-file */

@@ -15,10 +15,8 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
-use processed/VFD_restricted_1monthmin_with_migration, replace
+do "_config.do"
+use "$derived/VFD_restricted_1monthmin_with_migration", replace
 /*==================================================
               1: Variables and samples
 ==================================================*/
@@ -81,7 +79,7 @@ forvalues i = 5(1)426 {
 		quietly compress
 		quietly sort id et
 		gen stacknum = `i'
-		save processed/stacks/stack_`i', replace
+		save "$derived/stacks/stack_`i'", replace
 		
 		/*
 		reghdfe distance o.F1event F2event-F9event L*event, cluster(id)
@@ -102,19 +100,19 @@ forvalues i = 5(1)426 {
 
 // Create the stacked dataset
 
-use processed/stacks/stack_5, clear
+use "$derived/stacks/stack_5", clear
 
 forvalues i = 6(1)426 {
 	
-	append using processed/stacks/stack_`i'
+	append using "$derived/stacks/stack_`i'"
 	
 }
-save processed/stacked, replace
+save "$derived/stacked", replace
 
 // Create weights for WOLS event study
 // See Wing et al., 2024 for different weighting schemes and justifications
 // This is the 3rd weighting scheme they discuss, based on treatment/control counts in the analytical sample 
-use processed/stacked, clear
+use "$derived/stacked", clear
 preserve
 	gcollapse (mean) N Nd Nc, by(stacknum)
 	
@@ -164,23 +162,23 @@ keep distance ihskm lkm sqkm newid stacktime treat weight dtag ptag F9event-L8ev
 
 reghdfe distance F9event-F6event o.F5event F4event-L8event, cluster(newid) absorb(stacktime newid)
 coefplot, vert omit drop(_cons) xlabel(1 "-9" 2 "-8" 3 "-7" 4 "-6" 5 "-5" 6 "-4" 7 "-3" 8 "-2" 9 "-1" 10 "0" 11 "1" 12 "2" 13 "3" 14 "4" 15 "5" 16 "6" 17 "7" 18 "8") xtitle("Time since treatment") ytitle("Relative ATET") xline(9) scheme(plotplainblind) yline(0) ciopts(recast(rcap))
-graph export results/figures/stackedeventstudy_distance_jmp.png, replace
+graph export "$figures/stackedeventstudy_distance_jmp.png", replace
 
 reghdfe dtag F9event-F2event o.F1event L0event-L8event, cluster(newid) absorb(stacktime newid)
 coefplot, vert omit drop(_cons) xlabel(1 "-9" 2 "-8" 3 "-7" 4 "-6" 5 "-5" 6 "-4" 7 "-3" 8 "-2" 9 "-1" 10 "0" 11 "1" 12 "2" 13 "3" 14 "4" 15 "5" 16 "6" 17 "7" 18 "8") xtitle("Time since treatment") ytitle("Relative ATET") xline(9) scheme(plotplainblind) yline(0) ciopts(recast(rcap))
-graph export results/figures/stackedeventstudy_dtaglpm_jmp.png, replace
+graph export "$figures/stackedeventstudy_dtaglpm_jmp.png", replace
 
 reghdfe ptag F9event-F2event o.F1event L0event-L8event, cluster(newid) absorb(stacktime newid)
 coefplot, vert omit drop(_cons) xlabel(1 "-9" 2 "-8" 3 "-7" 4 "-6" 5 "-5" 6 "-4" 7 "-3" 8 "-2" 9 "-1" 10 "0" 11 "1" 12 "2" 13 "3" 14 "4" 15 "5" 16 "6" 17 "7" 18 "8") xtitle("Time since treatment") ytitle("Relative ATET") xline(9) scheme(plotplainblind) yline(0) ciopts(recast(rcap))
-graph export results/figures/stackedeventstudy_ptaglpm_jmp.png, replace
+graph export "$figures/stackedeventstudy_ptaglpm_jmp.png", replace
 
 ppmlhdfe dtag F9event-F2event o.F1event L0event-L8event, cluster(newid) absorb(stacktime newid)
 coefplot, vert omit drop(_cons) xlabel(1 "-9" 2 "-8" 3 "-7" 4 "-6" 5 "-5" 6 "-4" 7 "-3" 8 "-2" 9 "-1" 10 "0" 11 "1" 12 "2" 13 "3" 14 "4" 15 "5" 16 "6" 17 "7" 18 "8") xtitle("Time since treatment") ytitle("Relative ATET") xline(9) scheme(plotplainblind) yline(0) ciopts(recast(rcap))
-graph export results/figures/stackedeventstudy_dtag_jmp.png, replace
+graph export "$figures/stackedeventstudy_dtag_jmp.png", replace
 
 ppmlhdfe ptag F9event-F2event o.F1event L0event-L8event, cluster(newid) absorb(stacktime newid)
 coefplot, vert omit drop(_cons) xlabel(1 "-9" 2 "-8" 3 "-7" 4 "-6" 5 "-5" 6 "-4" 7 "-3" 8 "-2" 9 "-1" 10 "0" 11 "1" 12 "2" 13 "3" 14 "4" 15 "5" 16 "6" 17 "7" 18 "8") xtitle("Time since treatment") ytitle("Relative ATET") xline(9) scheme(plotplainblind) yline(0) ciopts(recast(rcap))
-graph export results/figures/stackedeventstudy_ptag_jmp.png, replace
+graph export "$figures/stackedeventstudy_ptag_jmp.png", replace
 
 eventdd distance, timevar(ttt) baseline(-5) method(hdfe, absorb(stacktime))
 

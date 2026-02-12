@@ -15,10 +15,8 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
-use processed/VFD_restricted_1monthmin_with_migration, replace
+do "_config.do"
+use "$derived/VFD_restricted_1monthmin_with_migration", replace
 /*==================================================
               1: Variables and samples
 ==================================================*/
@@ -81,7 +79,7 @@ forvalues i = 10(1)421 {
 		quietly compress
 		quietly sort id et
 		gen stacknum = `i'
-		save processed/bigstacks/bigstack_`i', replace
+		save "$derived/bigstacks/bigstack_`i'", replace
 		
 		/*
 		reghdfe distance o.F1event F2event-F9event L*event, cluster(id)
@@ -102,19 +100,19 @@ forvalues i = 10(1)421 {
 
 // Create the stacked dataset
 
-use processed/bigstacks/bigstack_10, clear
+use "$derived/bigstacks/bigstack_10", clear
 
 forvalues i = 11(1)421 {
 	
-	append using processed/bigstacks/bigstack_`i'
+	append using "$derived/bigstacks/bigstack_`i'"
 	
 }
-save processed/bigstacked, replace
+save "$derived/bigstacked", replace
 
 // Create weights for WOLS event study
 // See Wing et al., 2024 for different weighting schemes and justifications
 // This is the 3rd weighting scheme they discuss, based on treatment/control counts in the analytical sample 
-use processed/bigstacked, clear
+use "$derived/bigstacked", clear
 preserve
 	gcollapse (mean) N Nd Nc, by(stacknum)
 	
@@ -167,17 +165,17 @@ xtset newid stacktime
 est clear
 reghdfe ptag F19event-F2event o.F1event L0event-L18event [aw=weight], cluster(newid) absorb(stacktime treat)
 coefplot, vert omit drop(_cons *treat *stacktime) xlabel(1 "-19" 2 "-18" 3 "-17" 4 "-16" 5 "-15" 6 "-14" 7 "-13" 8 "-12" 9 "-11" 10 "-10" 11 "-9" 12 "-8" 13 "-7" 14 "-6" 15 "-5" 16 "-4" 17 "-3" 18 "-2" 19 "-1" 20 "0" 21 "1" 22 "2" 23 "3" 24 "4" 25 "5" 26 "6" 27 "7" 28 "8" 29 "9" 30 "10" 31 "11" 32 "12" 33 "13" 34 "14" 35 "15" 36 "16" 37 "17" 38 "18") xtitle("Time since treatment") ytitle("Relative ATET") xline(19) yline(0) scheme(plotplainblind) ciopts(recast(rcap))
-graph export results/figures/bigstackedeventstudy_ptaglpm_jmp.png, replace
+graph export "$figures/bigstackedeventstudy_ptaglpm_jmp.png", replace
 
 est clear
 reghdfe distance F19event-F2event o.F1event L0event-L18event [aw=weight], cluster(newid) absorb(stacktime treat)
 coefplot, vert omit drop(_cons *treat *stacktime) xlabel(1 "-19" 2 "-18" 3 "-17" 4 "-16" 5 "-15" 6 "-14" 7 "-13" 8 "-12" 9 "-11" 10 "-10" 11 "-9" 12 "-8" 13 "-7" 14 "-6" 15 "-5" 16 "-4" 17 "-3" 18 "-2" 19 "-1" 20 "0" 21 "1" 22 "2" 23 "3" 24 "4" 25 "5" 26 "6" 27 "7" 28 "8" 29 "9" 30 "10" 31 "11" 32 "12" 33 "13" 34 "14" 35 "15" 36 "16" 37 "17" 38 "18") xtitle("Time since treatment") ytitle("Relative ATET") xline(19) yline(0) scheme(plotplainblind) ciopts(recast(rcap))
-graph export results/figures/bigstackedeventstudy_distance_jmp.png, replace
+graph export "$figures/bigstackedeventstudy_distance_jmp.png", replace
 
 est clear
 reghdfe dtag F19event-F2event o.F1event L0event-L18event [aw=weight], cluster(newid) absorb(stacktime treat)
 coefplot, vert omit drop(_cons *treat *stacktime) xlabel(1 "-19" 2 "-18" 3 "-17" 4 "-16" 5 "-15" 6 "-14" 7 "-13" 8 "-12" 9 "-11" 10 "-10" 11 "-9" 12 "-8" 13 "-7" 14 "-6" 15 "-5" 16 "-4" 17 "-3" 18 "-2" 19 "-1" 20 "0" 21 "1" 22 "2" 23 "3" 24 "4" 25 "5" 26 "6" 27 "7" 28 "8" 29 "9" 30 "10" 31 "11" 32 "12" 33 "13" 34 "14" 35 "15" 36 "16" 37 "17" 38 "18") xtitle("Time since treatment") ytitle("Relative ATET") xline(19) yline(0) scheme(plotplainblind) ciopts(recast(rcap))
-graph export results/figures/bigstackedeventstudy_dtaglpm_jmp.png, replace
+graph export "$figures/bigstackedeventstudy_dtaglpm_jmp.png", replace
 /* 
 lincom (F9event +F8event +F7event +F6event +F5event +F4event +F3event +F2event +F1event)/9
 local avg = r(estimate)

@@ -15,10 +15,8 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
-use processed/VFD_restricted_1monthmin_with_migration, clear
+do "_config.do"
+use "$derived/VFD_restricted_1monthmin_with_migration", clear
 
 *for each id, we need a "panel" of alternatives.
 *this would be the simplest case:
@@ -170,7 +168,7 @@ eststo strict20cmc: cmclogit chosen2, casevars(vpermon_20km meanrog count_obs i.
 	quietly su vpermon_20km
 	estadd scalar x_mean = r(mean)
 
-esttab lax5cmc lax20cmc strict5cmc strict20cmc using results/tables/cmclogit_combo.tex, replace style(tex) ///
+esttab lax5cmc lax20cmc strict5cmc strict20cmc using "$tables/cmclogit_combo.tex", replace style(tex) ///
 label cells(b(star fmt(3)) se(par fmt(3))) starlevels(* 0.10 ** 0.05 *** 0.01) ///
 keep(vpermon_5km vpermon_20km meanrog) order(vpermon_5km vpermon_20km meanrog) collabels(none) compress noobs nonotes nomtitle booktabs ///
 scalars("x_mean Avg. monthly exp." "bigN Observations" "liln Migrants classified" "samp_mean \% classified") sfmt(2 0 0 2) ///
@@ -212,9 +210,9 @@ nlogit chosen || top: vpermon_5km meanrog, base(Remain) || alts:, case(id)
 ** hard model (~50 choices)  **
 *******************************
 
-expand 47
-sort id // final_loc has 46 location choices, we need 1 more for "stay"
-by id: gen alts = _n
+*expand 47
+*sort id // final_loc has 46 location choices, we need 1 more for "stay"
+*by id: gen alts = _n
 
 *...tbc
 

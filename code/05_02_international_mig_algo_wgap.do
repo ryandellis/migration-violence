@@ -15,10 +15,8 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
-use processed/VFD_restricted_1monthmin_GAP, clear
+do "_config.do"
+use "$derived/VFD_restricted_1monthmin_GAP", clear
 
 sort id date
 
@@ -61,9 +59,9 @@ preserve
 keep if lastday==1 & dropout
 
 // 2. calculate distance to known crossings
-geonear id latitude longitude using processed/feasibleborderpoints, n(nborid latitude longitude) nearcount(17) long
+geonear id latitude longitude using "$derived/feasibleborderpoints", n(nborid latitude longitude) nearcount(17) long
 
-// 3. 
+// 3.
 
 generate lastday_over=0
 
@@ -77,7 +75,7 @@ preserve
 di "hey"
 keep if lastday_`x' & dropout
 di "how's"
-geonear id latitude longitude using processed/feasibleborderpoints, n(nborid latitude longitude) nearcount(17) long
+geonear id latitude longitude using "$derived/feasibleborderpoints", n(nborid latitude longitude) nearcount(17) long
 di "it"
 generate lastday_over=`x'
 di "going?"
@@ -100,7 +98,7 @@ drop temp
 
 collapse (max) finalborder, by(id)
 
-save processed/finalborders_GAP, replace //first pass identifies which is final border
+save "$derived/finalborders_GAP", replace //first pass identifies which is final border
 
 
 
@@ -109,7 +107,7 @@ save processed/finalborders_GAP, replace //first pass identifies which is final 
 ********************************************************************************
 
 * Do the program again, but in wide format, to merge nicely with original dataset:
-use processed/VFD_restricted_1monthmin_GAP, clear
+use "$derived/VFD_restricted_1monthmin_GAP", clear
 sort id date
 bys id: egen finalday = max(date)
 g lastday = 0
@@ -128,9 +126,9 @@ preserve
 keep if lastday==1 & dropout
 
 // 2. calculate distance to known crossings
-geonear id latitude longitude using processed/feasibleborderpoints, n(nborid latitude longitude) nearcount(17)
+geonear id latitude longitude using "$derived/feasibleborderpoints", n(nborid latitude longitude) nearcount(17)
 
-// 3. 
+// 3.
 generate lastday_over=0
 tempfile geos
 save `geos'
@@ -142,7 +140,7 @@ preserve
 di "hey"
 keep if lastday_`x' & dropout
 di "how's"
-geonear id latitude longitude using processed/feasibleborderpoints, n(nborid latitude longitude) nearcount(17)
+geonear id latitude longitude using "$derived/feasibleborderpoints", n(nborid latitude longitude) nearcount(17)
 di "it"
 generate lastday_over=`x'
 di "going?"
@@ -155,7 +153,7 @@ restore
 use `geos', clear
 
 
-merge m:1 id using processed/finalborders_GAP
+merge m:1 id using "$derived/finalborders_GAP"
 
 
 gen km_to_final = .
@@ -179,7 +177,7 @@ label values finalborder crossings
 
 
 
-save processed/dropouts_GAP, replace
+save "$derived/dropouts_GAP", replace
 
 
 
@@ -193,7 +191,7 @@ save processed/dropouts_GAP, replace
               2: 
 ==================================================*/
 
-use processed/dropouts_GAP, replace
+use "$derived/dropouts_GAP", replace
 drop _merge
 *----------2.1: next is to implement restrictions based on distance and bearing
 sort id -lastday_over
@@ -217,7 +215,7 @@ compress
 
 
 *----------3.1:
-merge 1:1 id date using processed/VFD_restricted_1monthmin_GAP
+merge 1:1 id date using "$derived/VFD_restricted_1monthmin_GAP"
 
 *----------3.2:
 sort id date
@@ -271,7 +269,7 @@ drop _merge res* sqdist meansqdist
 
 compress
 
-save processed/VFD_restricted_1monthmin_with_migration_GAP, replace
+save "$derived/VFD_restricted_1monthmin_with_migration_GAP", replace
 
 
 

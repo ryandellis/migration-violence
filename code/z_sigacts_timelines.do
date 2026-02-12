@@ -16,13 +16,12 @@ Output:
               0: Program set up
 ==================================================*/
 
-drop _all
-cd "C:\Users\ellisrya\OneDrive - Seton Hall University\01.research\JMP\analysis\"
+do "_config.do"
 
 *generate stats and figures from SIGACTS during study period
 *get OK from Robert for using full SIGACTS
 
-use "C:\Users\ellisrya\Dropbox\Violence and Cell Phone Access\Data\Clean_data\sigacts_allcats_allyears.dta", clear
+use "$sigacts/sigacts_allcats_allyears.dta", clear
 
 *restrict to study period
 keep if ym > tm(2010m11)
@@ -134,24 +133,24 @@ font_style Arial Narrow
 
 *daily line of all sigacts:
 tw line all_sigact date
-graph export results/figures/all_sigact.png, replace
+graph export "$figures/all_sigact.png", replace
 
 tw (area gap date, acolor("160 160 160")) (line all_sigact date, lcolor("255 0 0")), legend(position(6) rows(1) size(medsmall))
-graph export results/figures/imputed.png, replace
+graph export "$figures/imputed.png", replace
 
 *daily line of all insurgent activities:
 tw (line all_violence date) (line all_threats date) (line all_ied_fc date), legend(position(6) rows(1) size(large))
-graph export results/figures/sigacts_insurgent.png, replace
+graph export "$figures/sigacts_insurgent.png", replace
 
 *daily line graph of violence by type:
 color_style stevens
 tw (line all_df date) (line all_ied date, lpattern(longdash)) (line all_idf date, lpattern(shortdash)) (line all_safire date, lwidth(thick) lpattern(dot)), legend(position(6) rows(2))
-graph export results/figures/sigacts_type.png, replace
+graph export "$figures/sigacts_type.png", replace
 
 *daily line graph of incidents by actor:
 color_style egypt
 tw (line all_enemy date) (line all_friends date, lpattern(dash)) (line all_crimes date, lwidth(thick) lpattern(dot)), legend(position(6) rows(1))
-graph export results/figures/sigacts_actor.png, replace
+graph export "$figures/sigacts_actor.png", replace
 
 
 

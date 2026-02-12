@@ -15,45 +15,43 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
+do "_config.do"
 
 
 /*==================================================
               1: 
 ==================================================*/
 
-import delimited "C:\Users\rellis63\GaTech Dropbox\Ryan Ellis\02_PAPERS\00.JMP\JMP\analysis\processed\5km_highcasualty_matches.csv"
+import delimited "$derived/5km_highcasualty_matches.csv"
 sort id date
 
 keep id date w_tag k_tag both nkill nwound
 
-save "processed/5km_highcasualty_clean", replace
+save "$derived/5km_highcasualty_clean", replace
 
 
 
-import delimited "C:\Users\rellis63\GaTech Dropbox\Ryan Ellis\02_PAPERS\00.JMP\JMP\analysis\processed\20km_highcasualty_matches.csv", clear
+import delimited "$derived/20km_highcasualty_matches.csv", clear
 sort id date
 
 keep id date w_tag k_tag both nkill nwound
 
 ren (w_tag k_tag both nkill nwound) (w_tag20 k_tag20 both20 nkill20 nwound20)
 
-save "processed/20km_highcasualty_clean", replace
+save "$derived/20km_highcasualty_clean", replace
 
-merge 1:1 id date using "processed/5km_highcasualty_clean"
+merge 1:1 id date using "$derived/5km_highcasualty_clean"
 
 sort id date
 
 
 
 
-order id date w_tag k_tag both nkill nwound w_tag20 k_tag20 both20 nkill20 nwound20 summary
-drop longitude latitude fid event date_2 joint latitude_2 longitude_2 provstate city location _merge
+order id date w_tag k_tag both nkill nwound w_tag20 k_tag20 both20 nkill20 nwound20
+*drop longitude latitude fid event date_2 joint latitude_2 longitude_2 provstate city location _merge
 
 
-
+drop _merge
 gen double temp = date(date, "DMY")
 format temp %td
 
@@ -63,7 +61,7 @@ drop date
 rename temp date
 
 compress
-save processed/all_highcasualty_clean, replace
+save "$derived/all_highcasualty_clean", replace
 
 
 

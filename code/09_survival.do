@@ -15,10 +15,8 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
-use processed/VFD_restricted_1monthmin_with_migration, clear
+do "_config.do"
+use "$derived/VFD_restricted_1monthmin_with_migration", clear
 
 /*==================================================
               1: basic setup
@@ -62,7 +60,7 @@ stcurve, survival at1(vpermon_5km = 0) at2((mean) vpermon_5km) at3(vpermon_5km =
 	ylabel(, nogrid) xlabel(,nogrid) ///
 	xtitle("Days in sample") title("(1) Lenient") ///
 	leg(cols(2) pos(6) lab(1 "Zero monthly exposures") lab(2 "Mean monthly exp.") lab(3 "Mean +1 s.d.") size(medium)) name(external1, replace) 
-gr export results/figures/survival_ext_lax_5km.png, replace
+gr export "$figures/survival_ext_lax_5km.png", replace
 
 * External (strict), at 5km
 stset count_obs, failure(potmig2)
@@ -73,7 +71,7 @@ stcurve, survival at1(vpermon_5km = 0) at2((mean) vpermon_5km) at3(vpermon_5km =
 	ylabel(, nogrid) xlabel(,nogrid) ///
 	xtitle("Days in sample") title("(2) Restrictive") ///
 	leg(cols(2) pos(6) lab(1 "Zero monthly exposures") lab(2 "Mean monthly exp.") lab(3 "Mean +1 s.d.") size(medium)) name(external2, replace)
-gr export results/figures/survival_ext_strict_5km.png, replace
+gr export "$figures/survival_ext_strict_5km.png", replace
 
 
 * Internal, at 5km
@@ -84,7 +82,7 @@ stcurve, survival at1(vpermon_5km = 0) at2((mean) vpermon_5km) at3(vpermon_5km =
 	ylabel(, nogrid) xlabel(,nogrid) ///
 	xtitle("Days in sample") title("(3) Internal") ///
 	leg(cols(2) pos(6) lab(1 "Zero monthly exposures") lab(2 "Mean monthly exp.") lab(3 "Mean +1 s.d.") size(medium)) name(internal, replace)
-gr export results/figures/survival_internal_5km.png, replace
+gr export "$figures/survival_internal_5km.png", replace
 
 
 * Dropout, at 5km
@@ -95,11 +93,11 @@ stcurve, survival at1(vpermon_5km = 0) at2((mean) vpermon_5km) at3(vpermon_5km =
 	ylabel(, nogrid) xlabel(,nogrid) ///
 	xtitle("Days in sample") title("(4) All Attrition") ///
 	leg(cols(2) pos(6) lab(1 "Zero monthly exposures") lab(2 "Mean monthly exp.") lab(3 "Mean +1 s.d.") size(medium)) name(dropout, replace)
-gr export results/figures/survival_dropout_5km.png, replace
+gr export "$figures/survival_dropout_5km.png", replace
 
 
 graph combine external1 external2, scheme(cblind1)
-graph export results/figures/survival_combo.png, replace
+graph export "$figures/survival_combo.png", replace
 
 
 

@@ -15,10 +15,8 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
-use processed/VFD_with_internal, replace
+do "_config.do"
+use "$derived/VFD_with_internal", replace
 /*==================================================
               1: 
 ==================================================*/
@@ -63,12 +61,12 @@ order id date week ym longitude latitude district provid province df_5km idf_5km
 
 compress
 
-*save processed/VFD_baseline_unrestricted, replace // baseline with minimal restrictions
+*save "$derived/VFD_baseline_unrestricted", replace // baseline with minimal restrictions
 
 // restriction based on minimum days needed to be classified internal migrant
 drop if count_obs < 31
 
-save processed/VFD_restricted_1monthmin_GAP, replace
+save "$derived/VFD_restricted_1monthmin_GAP", replace
 
 
 

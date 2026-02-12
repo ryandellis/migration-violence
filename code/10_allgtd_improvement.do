@@ -15,18 +15,16 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
+do "_config.do"
 
 
 /*==================================================
               1: 
 ==================================================*/
 
-use processed/VFD_restricted_1monthmin_with_migration
+use "$derived/VFD_restricted_1monthmin_with_migration"
 
-merge 1:1 id date using processed/allgtd_clean
+merge 1:1 id date using "$derived/allgtd_clean"
 
 gen region = .
 replace region = 1 if provid==14 | provid==16 | provid==21 | provid==22 | provid==28 | provid==29 
@@ -142,7 +140,7 @@ eststo bands20km: logit potmig violence_all_20km_pm nkill20_2_pm nkill20_5_pm nk
 	estadd local geos = "YES"
 	scalar drop _all	
 
-esttab bands5km bands20km using results/tables/bands_logit_sigact.tex, replace style(tex) depvars ///
+esttab bands5km bands20km using "$tables/bands_logit_sigact.tex", replace style(tex) depvars ///
 label cells(b(star fmt(3)) se(par fmt(3))) starlevels(* 0.10 ** 0.05 *** 0.01) ///
 keep(violence_all_5km_pm nkill_2_pm nkill_5_pm nkill_9_pm nkill_plus_pm violence_all_20km_pm nkill20_2_pm nkill20_5_pm nkill20_9_pm nkill20_plus_pm meanrog) order(violence_all_5km_pm nkill_2_pm nkill_5_pm nkill_9_pm nkill_plus_pm violence_all_20km_pm nkill20_2_pm nkill20_5_pm nkill20_9_pm nkill20_plus_pm) collabels(none) compress noobs nonotes nomtitle booktabs eqlabels("") eform ///
 scalars("samp_mean Dependent var. mean" "delta2 $\Delta$ over baseline (1-2)" "delta5 $\Delta$ over baseline (3-5)" "delta9 $\Delta$ over baseline (6-9)" "deltap $\Delta$ over baseline (10+)" "bigN Observations" "geos Geographic controls" ) sfmt(4 4 4 4 4 2 0)
@@ -152,38 +150,38 @@ estimates clear
 
 logit potmig violence_all_5km_pm nkill_2_pm nkill_5_pm nkill_9_pm nkill_plus_pm count_obs meanrog share_imputed i.mreg, cluster(mprov) or
 coefplot, vert keep(nkill_2_pm nkill_5_pm nkill_9_pm nkill_plus_pm) eform ytitle("Multiplicative Odds of Migration") xtitle("Monthly Exposures by Number Killed") yline(1, lcolor(red) lwidth(thick)) recast(bar) citop cirecast(rcap) ciopts(lcolor(black*.8)) barwidth(.8)
-graph export results/figures/killbarslenient5km.png
+graph export "$figures/killbarslenient5km.png", replace
 
 logit potmig violence_all_20km_pm nkill20_2_pm nkill20_5_pm nkill20_9_pm nkill20_plus_pm count_obs meanrog share_imputed i.mreg, cluster(mprov) or
 coefplot, vert keep(nkill20_2_pm nkill20_5_pm nkill20_9_pm nkill20_plus_pm) eform ytitle("Multiplicative Odds of Migration") xtitle("Monthly Exposures by Number Killed") yline(1, lcolor(red) lwidth(thick)) recast(bar) citop cirecast(rcap) ciopts(lcolor(black*.8)) barwidth(.8)
-graph export results/figures/killbarslenient20km.png
+graph export "$figures/killbarslenient20km.png", replace
 
 logit potmig2 violence_all_5km_pm nkill_2_pm nkill_5_pm nkill_9_pm nkill_plus_pm count_obs meanrog share_imputed i.mreg, cluster(mprov) or
 coefplot, vert keep(nkill_2_pm nkill_5_pm nkill_9_pm nkill_plus_pm) eform ytitle("Multiplicative Odds of Migration") xtitle("Monthly Exposures by Number Killed") yline(1, lcolor(red) lwidth(thick)) recast(bar) citop cirecast(rcap) ciopts(lcolor(black*.8)) barwidth(.8)
-graph export results/figures/killbarsrestrictive5km.png
+graph export "$figures/killbarsrestrictive5km.png", replace
 
 logit potmig2 violence_all_20km_pm nkill20_2_pm nkill20_5_pm nkill20_9_pm nkill20_plus_pm count_obs meanrog share_imputed i.mreg, cluster(mprov) or
 coefplot, vert keep(nkill20_2_pm nkill20_5_pm nkill20_9_pm nkill20_plus_pm) eform ytitle("Multiplicative Odds of Migration") xtitle("Monthly Exposures by Number Killed") yline(1, lcolor(red) lwidth(thick)) recast(bar) citop cirecast(rcap) ciopts(lcolor(black*.8)) barwidth(.8)
-graph export results/figures/killbarsrestrictive20km.png
+graph export "$figures/killbarsrestrictive20km.png", replace
 
 logit intevermig violence_all_5km_pm nkill_2_pm nkill_5_pm nkill_9_pm nkill_plus_pm count_obs meanrog share_imputed i.mreg, cluster(mprov) or
 coefplot, vert keep(nkill_2_pm nkill_5_pm nkill_9_pm nkill_plus_pm) eform ytitle("Multiplicative Odds of Migration") xtitle("Monthly Exposures by Number Killed") yline(1, lcolor(red) lwidth(thick)) recast(bar) citop cirecast(rcap) ciopts(lcolor(black*.8)) barwidth(.8)
-graph export results/figures/killbarsinternal5km.png
+graph export "$figures/killbarsinternal5km.png", replace
 
 logit intevermig violence_all_20km_pm nkill20_2_pm nkill20_5_pm nkill20_9_pm nkill20_plus_pm count_obs meanrog share_imputed i.mreg, cluster(mprov) or
 coefplot, vert keep(nkill20_2_pm nkill20_5_pm nkill20_9_pm nkill20_plus_pm) eform ytitle("Multiplicative Odds of Migration") xtitle("Monthly Exposures by Number Killed") yline(1, lcolor(red) lwidth(thick)) recast(bar) citop cirecast(rcap) ciopts(lcolor(black*.8)) barwidth(.8)
-graph export results/figures/killbarsinternal20km.png
+graph export "$figures/killbarsinternal20km.png", replace
 
 ************************
 *margins?
 
-logit potmig violence_all_5km_pm nkill_2_pm nkill_5_pm nkill_9_pm nkill_plus_pm count_obs meanrog share_imputed i.mreg, cluster(mprov) or
-margins, at(nkill_2_pm=(0(.5)4))
-marginsplot
-margins, at(nkill_5_pm=(0(.5)4))
-marginsplot
-margins, at(nkill_9_pm=(0(.5)4))
-marginsplot
-margins, at(nkill_plus_pm=(0(.5)4))
-marginsplot
+// logit potmig violence_all_5km_pm nkill_2_pm nkill_5_pm nkill_9_pm nkill_plus_pm count_obs meanrog share_imputed i.mreg, cluster(mprov) or
+// margins, at(nkill_2_pm=(0(.5)4))
+// marginsplot
+// margins, at(nkill_5_pm=(0(.5)4))
+// marginsplot
+// margins, at(nkill_9_pm=(0(.5)4))
+// marginsplot
+// margins, at(nkill_plus_pm=(0(.5)4))
+// marginsplot
 

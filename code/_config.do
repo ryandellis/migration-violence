@@ -29,6 +29,8 @@ global gridpop   "${raw}/griddedpop"
 global geoquery  "${raw}/geoquery"
 global nrva      "${raw}/nrva_survey"
 global dismig    "${raw}/Disaggregated_Migration"
+global gtd       "${raw}/gtd"
+global sigacts   "${raw}/sigacts"
 
 * --- Package library (project-local) ---
 cap mkdir "${root}/code/libraries/stata"

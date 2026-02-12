@@ -15,10 +15,8 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
-use processed/VFD_restricted_1monthmin_with_migration, replace
+do "_config.do"
+use "$derived/VFD_restricted_1monthmin_with_migration", replace
 
 /*==================================================
               1: base level restrictions
@@ -150,7 +148,7 @@ estpost tabstat d_violence_all_5km d_df_5km d_idf_5km d_safire_5km d_ied_5km vio
 esttab, cells("mean sd p50 max")
 estout, cells("mean sd p50 max")
 
-esttab using results/tables/sumstat5km1_1monthmin.tex, replace ///
+esttab using "$tables/sumstat5km1_1monthmin.tex", replace ///
 	refcat(d_violence_all_5km "\vspace{0.1em} \\ \emph{Panel A: Violence (Ever exposed)}" violence_all_5km "\vspace{0.1em} \\ \emph{Panel B: Violence (Total exposures)}" perday_violence_all_5km "\vspace{0.1em} \\ \emph{Panel C: Violence (Per day)}", nolabel) ///
 	cells("mean(fmt(2)) sd(fmt(2)) p50(fmt(2)) max(fmt(0))") nostar unstack nonumber ///
   compress nomtitle nonote noobs label booktabs ///
@@ -166,7 +164,7 @@ estpost tabstat d_violence_all_20km d_df_20km d_idf_20km d_safire_20km d_ied_20k
 esttab, cells("mean sd p50 max")
 estout, cells("mean sd p50 max")
 
-esttab using results/tables/sumstat20km1_1monthmin.tex, replace ///
+esttab using "$tables/sumstat20km1_1monthmin.tex", replace ///
 	refcat(d_violence_all_20km "\vspace{0.1em} \\ \emph{Panel A: Violence (Ever exposed)}" violence_all_20km "\vspace{0.1em} \\ \emph{Panel B: Violence (Total exposures)}" perday_violence_all_20km "\vspace{0.1em} \\ \emph{Panel C: Violence (Per day)}", nolabel) ///
 	cells("mean(fmt(2)) sd(fmt(2)) p50(fmt(2)) max(fmt(0))") nostar unstack nonumber ///
   compress nomtitle nonote noobs label booktabs ///
@@ -179,7 +177,7 @@ estpost tabstat all5permon df5permon idf5permon safire5permon ied5permon, c(stat
 esttab, cells("mean sd max")
 estout, cells("mean sd max")
 
-esttab using results/tables/sumstat_monthly.tex, replace ///
+esttab using "$tables/sumstat_monthly.tex", replace ///
 	refcat(all5permon "\vspace{0.1em} \\ \emph{Average monthly rate of exposure}", nolabel) ///
 	cells("mean(fmt(3)) sd(fmt(3)) max(fmt(0))") nostar unstack nonumber ///
 	compress nomtitle nonote noobs label booktab collabels("Mean" "SD" "Max")
@@ -191,7 +189,7 @@ estpost tabstat distance rog dtag ptag intevermig potmig potmig2, c(stat) stat(m
 esttab, cells("mean sd p50 max")
 estout, cells("mean sd p50 max")
 
-esttab using results/tables/sumstat_mig_1monthmin.tex, replace ///
+esttab using "$tables/sumstat_mig_1monthmin.tex", replace ///
 	refcat(distance "\vspace{0.1em} \\ \emph{Panel A: Mobility}" intevermig "\vspace{0.1em} \\ \emph{Panel B: Migration}", nolabel) ///
 	cells("mean(fmt(2)) sd(fmt(2)) p50(fmt(2)) max(fmt(0))") nostar unstack nonumber ///
   compress nomtitle nonote noobs label booktabs ///
@@ -213,12 +211,12 @@ xtile decile = perday_violence_5km, nq(10)
 tab quartile
 gen dummy = inlist(quartile, 1,4)
 
-global vars dist_mloc rog dtag ptag intevermig
+global vars dist_mloc2 rog dtag ptag intevermig
 
 est clear
 estpost ttest $vars, by(dummy)
 ereturn list
-esttab using results/tables/balance_quartiles.tex, replace ///
+esttab using "$tables/balance_quartiles.tex", replace ///
 	cells("mu_1(fmt(3)) mu_2 b(star) se(par) count(fmt(0))") ///
 	collabels("Q1" "Q4" "Diff." "SE" "N") ///
 	star(* 0.10 ** 0.05 *** 0.01) label booktabs nonum gaps noobs compress

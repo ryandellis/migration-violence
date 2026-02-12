@@ -15,10 +15,8 @@ Output:
 /*==================================================
               0: Program set up
 ==================================================*/
-version 18
-drop _all
-cd "$AFG_CDR"
-use processed/VFD_data_clean, replace
+do "_config.do"
+use "$derived/VFD_data_clean", replace
 /*==================================================
               1: General variables and sorting
 ==================================================*/
@@ -106,11 +104,11 @@ gen rog = sqrt(meansqdist) //importantly, this metric is dependent on how many u
 
 
 
-save processed/VFD_data_wrangled, replace
+save "$derived/VFD_data_wrangled", replace
 
-do scripts/03_internal_mig_algorithm_VFD
+do 03_internal_mig_algorithm_VFD
 compress
-save processed/VFD_with_internal, replace
+save "$derived/VFD_with_internal", replace
 exit
 /* End of do-file */
 
