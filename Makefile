@@ -291,6 +291,7 @@ sync:
 		echo "Error: Overleaf directory not found at $(OVERLEAF_DIR)"; \
 		exit 1; \
 	fi
+	cd $(OVERLEAF_DIR) && git pull --rebase origin master
 	@echo "Syncing output to Overleaf..."
 	@mkdir -p $(OVERLEAF_DIR)/tables $(OVERLEAF_DIR)/figures
 	cp $(T)/*.tex $(OVERLEAF_DIR)/tables/ 2>/dev/null || true

@@ -31,6 +31,11 @@
 
 \geometry{left=1.0in,right=1.0in,top=1.0in,bottom=1.0in}
 
+\n% --- Paths for Overleaf sync ---
+\graphicspath{{figures/}}
+\makeatletter
+\def\input@path{{tables/}}
+\makeatother
 \begin{document}
 
 \bibliographystyle{aer}
@@ -128,7 +133,7 @@ The majority of Afghan refugees from both the Soviet period and the Taliban insu
 \begin{figure}[h]
     \centering
     \caption{Millions of Afghan refugees in bordering countries}
-    \includegraphics[width=0.8\linewidth]{analysis/results/figures/unhcr_refugees_tsline.png}
+    \includegraphics[width=0.8\linewidth]{unhcr_refugees_tsline.png}
     \vspace{0.25cm}
     \caption*{\small \textit{Notes:} The stock of Afghan refugees in Pakistan, Iran, and Tajikstan from 1995 to 2015. Data are from the \cite{united_nations_high_commissioner_for_refugees_unhcr_2022}. The units on the vertical axis represent millions.}
     \label{fig:unhcr}
@@ -147,7 +152,7 @@ Violent events are categorized by type of attack (direct fire, indirect fire, im
 \begin{figure}[H]
     \centering
     \caption{SIGACTs in Afghan districts during the sample period}
-    \includegraphics[width=0.8\linewidth]{analysis/results/figures/SIGACTS_events.png}
+    \includegraphics[width=0.8\linewidth]{SIGACTS_events.png}
     \label{fig:sigacts_by_district}
     \vspace{0.25cm}
     \caption*{\small \textit{Notes:} Darker shaded districts experience more violence than lighter ones. Though SIGACT data contains several event types, I define violent exposure to include only direct fire, indirect fire, successful IEDs, and surface-to-air strikes. Notably, the category only includes violence accomplished by the insurgency.}
@@ -159,7 +164,7 @@ Violent events are categorized by type of attack (direct fire, indirect fire, im
 \begin{figure}[h]
     \centering
     \caption{Total SIGACTs by actor during sample period}
-    \includegraphics[width=0.8\linewidth]{analysis/results/figures/sigacts_actor.png}
+    \includegraphics[width=0.8\linewidth]{sigacts_actor.png}
     \vspace{0.25cm}
     \caption*{\small \textit{Notes:} This graph compares all SIGACTs by actor, without the author's specified violence categorization. Insurgent actions therefore include threats, found and cleared IEDs, and all the categories shown in Figure \ref{fig:sigacts_type}. Crime is committed by non-combatant civilians.}
     \label{fig:sigacts_actor}
@@ -168,7 +173,7 @@ Violent events are categorized by type of attack (direct fire, indirect fire, im
 \begin{figure}[h]
     \centering
     \caption{Insurgent violence by type during sample period}
-    \includegraphics[width=0.8\linewidth]{analysis/results/figures/sigacts_type.png}
+    \includegraphics[width=0.8\linewidth]{sigacts_type.png}
     \vspace{0.25cm}
     \caption*{\small \textit{Notes:} Though SIGACT data contains several event types, I define a binary variable for violent exposures that includes only direct fire, indirect fire, successful IEDs, and surface-to-air strikes. Each of these describe acts of violence accomplished by insurgent actors only.}
     \label{fig:sigacts_type}
@@ -188,7 +193,7 @@ where $r_{itk}$ is the vector of latitude and longitude coordinates, $\binom{lat
 \begin{figure}[h]
     \centering
     \caption{Roshan cell towers in Afghanistan, 2011}
-    \includegraphics[width=0.8\textwidth]{analysis/results/figures/afg_roshan_popdensity.png}
+    \includegraphics[width=0.8\textwidth]{afg_roshan_popdensity.png}
     \vspace{0.25cm}
     \caption*{\small \textit{Notes:} Red dots denote cell tower locations, which were obtained from Roshan. Population density was obtained from \cite{ciesin_-_columbia_university_gridded_2016}. Shading shows density at the district level, with high-density areas in darker blue.}
     \label{fig:towers}
@@ -201,7 +206,7 @@ The M-Paisa call detail records are merged at the daily level with SIGACT violen
 
 \begin{table}[h]
     \centering
-    \caption{5km exposures to violence, by individual user}       \input{analysis/results/tables/sumstat5km1_1monthmin}
+    \caption{5km exposures to violence, by individual user}       \input{sumstat5km1_1monthmin}
     \label{tab:sumstat}
     \vspace{.25cm}
     \caption*{\small \textit{Notes:} Excludes data from imputation gaps. Data are collapsed to the individual user-level. For restricted samples that further limit the number of imputed observations, see Appendix \ref{app:A}. For the same statistics for 20km exposures to violence, see Table \ref{tab:sumstat_20km} in Appendix \ref{app:B}.}
@@ -213,7 +218,7 @@ The M-Paisa call detail records are merged at the daily level with SIGACT violen
 \begin{figure}[h]
     \centering
     \caption{Identifying exposure to violent events}
-    \includegraphics[width=0.9\textwidth]{analysis/results/figures/cog_example_jmp.png}
+    \includegraphics[width=0.9\textwidth]{cog_example_jmp.png}
     \vspace{0.25cm}
     \caption*{\small \textit{Notes:} Yellow dots show the set of locations for a randomly-selected Roshan user. The red dot represents a violent event from SIGACT. The location of the red dot is for illustrative purposes only, and does not represent an actual event from the data. A single yellow dot sits inside the red circle, which represents a 20km radius from the hypothetical event. Notice, the date of the violent event must match that of the user-location observation within its exposure range. This user-day observation would receive a $1$ for the binary variable indicating a 20km exposure. As illustrated by the blue circle, that same user-day observation would be coded $0$ for the variable indicating a 5km exposure.}
     \label{fig:cdr}
@@ -251,7 +256,7 @@ Let $r_{iT} $ represent a user's location on their final day in the sample. I la
 \begin{table}[H]
     \centering
     \caption{Migration statistics, by individual user}
-    \input{analysis/results/tables/sumstat_mig_1monthmin}
+    \input{sumstat_mig_1monthmin}
     \label{tab:sumstat_mig}
     \vspace{.25cm}
     \caption*{\small \textit{Notes:} ``Km from home'' is measured daily. Radius of gyration is a monthly statistic. Variables for ``outside home district'' and ``outside home province'' are binary and measured daily. Internal migrations are classified as in \cite{blumenstock_migration_2023}. The two types of external migrations represent a (1) lenient and (2) restrictive set of parameters, respectively. Excludes data from imputation gaps. Data are collapsed to the individual user-level. For restricted samples that further limit the number of imputed observations, see Appendix \ref{app:A}.}
@@ -278,7 +283,7 @@ The usefulness of the CDR attrition method to infer external migrations is limit
 \begin{figure}[h!]
     \centering
     \caption{The intersection of Afghan borders and the convex hull of Roshan towers}  
-    \includegraphics[width=0.8\linewidth]{analysis/results/figures/convex_hull.png}
+    \includegraphics[width=0.8\linewidth]{convex_hull.png}
     \vspace{0.25cm}
     \label{fig:boundary}
     \caption*{\small \textit{Notes:} The green shaded area is the convex hull of Roshan towers intersected with Afghanistan's national borders. This map illustrates the fact that even if an individual successfully uses their phone outside the green area, their location in the data will be coded as that of the nearest tower to them, on or near the boundary of the shaded region. Also present are known border crossing locations. Yellow dots are border crossings that are feasibly covered by the convex hull of tower locations, and white crossings are not. The external migration results do not change with the inclusion/exclusion of the crossings outside the shaded area.}
@@ -323,7 +328,7 @@ After identifying potential migration episodes via the methods described above, 
 \begin{table}[htbp]
     \centering
     \caption{Migration and the Monthly Rate of Violence}
-    \input{analysis/results/tables/simple_logit_combo_ctrls}
+    \input{simple_logit_combo_ctrls}
     \label{tab:simplelogit}
     \vspace{0.25cm}
     \caption*{\small \textit{Notes:} Results from logistic regression on a cross-section of all users. The outcome of interest is a dichotomous variable equal to 1 if a user is ever categorized as a migrant, zero (0) otherwise. Coefficients are reported as the multiplicative change in odds. Columns (1) and (2) are estimated using data from a ``lenient'' implementation of the migrant classification criteria, while columns (3) and (4) use the ``restrictive'' version. Columns (5) and (6) estimate internal migrations as defined in \cite{blumenstock_migration_2023}. Regression controls include users' mean radius of gyration (ROG), total time in sample, share of days with phone usage, and  modal home province indicators. Standard errors are clustered at the province level. Rows in the lower panel report average marginal effects, proportional change, elasticity, and mean monthly exposure, each with respect to the independent variable of interest: users' monthly rate of violent exposures at either 5km or 20km.\\
@@ -337,7 +342,7 @@ The average marginal effects and proportional changes over baseline reported in 
 
 \begin{figure}[h]
     \centering
-        \caption{Marginal change in predicted log odds of external migration} \includegraphics[width=0.8\linewidth, height=8cm]{analysis/results/figures/migration_levels_ctrls.png} 
+        \caption{Marginal change in predicted log odds of external migration} \includegraphics[width=0.8\linewidth, height=8cm]{migration_levels_ctrls.png} 
         \vspace{0.25cm}
         \caption*{\small \textit{Notes:} Plots show marginal changes in the predicted log odds of migration events over values of monthly 5km exposures to violence. The red dotted line corresponds to the lenient classification of external migration, and the blue to the restrictive version. Dashed lines show 95\% confidence intervals. The mean value of monthly exposures at 5km is 1.74, and the maximum is 60.}
         \label{fig:mig_levels}
@@ -349,7 +354,7 @@ The average marginal effects and proportional changes over baseline reported in 
 \begin{figure}[h]
         \centering
         \caption{Marginal change in predicted log odds of internal migration and sample attrition}
-        \includegraphics[width=0.8\linewidth, height=8cm]{analysis/results/figures/nonmig_levels_ctrls.png}
+        \includegraphics[width=0.8\linewidth, height=8cm]{nonmig_levels_ctrls.png}
         \vspace{0.25cm}
         \caption*{\small \textit{Notes:} Plots show marginal changes in the predicted log odds of two event types over values of monthly 5km exposures to violence. The red dotted line corresponds to internal migrations, and the blue to sample attrition. Dashed lines show 95\% confidence intervals. The mean value of monthly exposures at 5km is 1.74, and the maximum is 60.}
         \label{fig:nonmig_levels}
@@ -360,7 +365,7 @@ The average marginal effects and proportional changes over baseline reported in 
 \begin{figure}[H]
     \centering
     \caption{Elasticity of external migration to violent exposures}
-    \includegraphics[width=0.8\linewidth, height=7.5cm]{analysis/results/figures/migration_elasticities_ctrls.png}
+    \includegraphics[width=0.8\linewidth, height=7.5cm]{migration_elasticities_ctrls.png}
     %\vspace{0.25cm}
     \caption*{\small \textit{Notes:} Plots show marginal changes in the elasticity of migration events over values of monthly 5km exposures to violence. The red dotted line corresponds to the lenient classification of external migration, and the blue to the restrictive version. Dashed lines show 95\% confidence intervals. The mean value of monthly exposures at 5km is 1.74, and the maximum is 60.}
     \label{fig:mig_elas}
@@ -369,7 +374,7 @@ The average marginal effects and proportional changes over baseline reported in 
 \begin{figure}[H]
     \centering
     \caption{Elasticity of internal migration and sample attrition to violent exposures}
-    \includegraphics[width=0.8\linewidth, height=7.5cm]{analysis/results/figures/nonmig_elasticities_ctrls.png}
+    \includegraphics[width=0.8\linewidth, height=7.5cm]{nonmig_elasticities_ctrls.png}
     %\vspace{0.25cm}
     \caption*{\small \textit{Notes:} Plots show marginal changes in the elasticity of two event types over values of monthly 5km exposures to violence. The red dotted line corresponds to internal migrations, and the blue to sample attrition. Dashed lines show 95\% confidence intervals. The mean value of monthly exposures at 5km is 1.74, and the maximum is 60.}
     \label{fig:nonmig_elas}
@@ -389,7 +394,7 @@ Results are nearly identical, and are reported in Table \ref{tab:cmclogit}, wher
 \begin{table}[H]
     \centering
     \caption{Displacement Choice with 3 Alternatives}    
-    \input{analysis/results/tables/cmclogit_combo}
+    \input{cmclogit_combo}
     \vspace{0.25cm}
     \caption*{\small \textit{Notes:} The base alternative is in this choice framework is to stay home. In columns 1 and 2, external migrations are inferred with the lenient parameters. Restrictive parameters are used for columns 3 and 4. Conditional logit regressions of displacement choice on violent exposures at 5km (columns 1 and 3) and 20km (columns 2 and 4). Regressions include controls for individual's radius of gyration and home province indicators. Errors are clustered at the individual level. \\
     *** p$<$0.01, ** p$<$0.05, * p$<$0.10.}
@@ -403,7 +408,7 @@ Results are nearly identical, and are reported in Table \ref{tab:cmclogit}, wher
 \caption{\centering Cox Proportional-Hazards:\\
 (1) External Lenient (2) External Restrictive\\
 (3) Internal Migration (4) Total Attrition}
-\includegraphics[width=\linewidth]{analysis/results/figures/survival_combo.png}
+\includegraphics[width=\linewidth]{survival_combo.png}
 \caption*{\small \textit{Notes:} Survival graphs from a Cox proportional hazards model. Hazard ratios, standard errors, and observations reported. Cross-sectional regression of individual users. Failure (defined as lenient (1) or restrictive (2) classifications of external migration events, or internal migration (3) or general attrition (4)) is regressed on monthly exposures to violence. Solid, dashed, and dotted lines represent predicted time until a failure event when monthly violence is at 0, its mean value, and its mean plus one standard deviation, respectively. Controls include individual's mean radius of gyration (ROG) and geographic indicators. Errors are clustered at the individual level.}
 \label{fig:survival_combo}
 \end{figure}
@@ -416,7 +421,7 @@ Results are nearly identical, and are reported in Table \ref{tab:cmclogit}, wher
 \begin{table}[htbp]
     \centering
     \caption{Migration and High-Casualty Violence}   
-    \input{analysis/results/tables/casualty_logit_combo}
+    \input{casualty_logit_combo}
     \vspace{0.25cm}
     \caption*{\small \textit{Notes:} Results from logistic regression on a cross-section of all users. The outcome of interest is a dichotomous variable equal to 1 if a user is ever categorized as a migrant, zero (0) otherwise. Coefficients are reported as the multiplicative change in odds. Columns (1) and (2) are estimated using data from a ``lenient'' implementation of the migrant classification criteria. The ``restrictive'' criteria does not classify enough migrants with varying exposure to high-casualty events for inclusion in this specification. Columns (3) and (4) estimate internal migrations as defined in \cite{blumenstock_migration_2023}. Regression controls include users' mean radius of gyration (ROG), total time in sample, share of days with phone usage, and  modal home province indicators. Standard errors are clustered at the province level. Rows in the lower panel report average marginal effects, proportional change, elasticity, and mean monthly exposure, each with respect to the independent variable of interest: users' monthly rate of exposures to violent events with at least 10 killed or at least 10 wounded, at either 5km or 20km.\\
     *** p$<$0.01, ** p$<$0.05, * p$<$0.10.}
@@ -437,8 +442,8 @@ The coefficient estimates in \ref{tab:casualty} may not be directly comparable t
     \centering
     \caption{\centering Increasing Migration Response by Event Intensity \\
     \small (1) 5km exposures and (2) 20km exposures}
-    \includegraphics[width=0.7\linewidth]{analysis/results/figures/killbarslenient5km.png}
-    \includegraphics[width=0.7\linewidth]{analysis/results/figures/killbarslenient20km.png}
+    \includegraphics[width=0.7\linewidth]{killbarslenient5km.png}
+    \includegraphics[width=0.7\linewidth]{killbarslenient20km.png}
 \vspace{0.25cm}
 \caption*{\small \textit{Notes:} Results from logistic regression on a cross-section of all users. The outcome of interest is a dichotomous variable equal to 1 if a user is ever categorized as a migrant, zero (0) otherwise. I use the ``lenient'' migrant classification, as the ``restrictive'' criteria does not encode enough migrants with varying exposure to high-casualty events for inclusion in this specification. Regression controls include the SIGACT exposure from the main specification, as well as users' mean radius of gyration (ROG), total time in sample, share of days with phone usage, and  modal home province indicators. Standard errors are clustered at the province level. The coefficients reported by the gray bars are the multiplicative change in odds of external migration. Each bar represents monthly exposure to violence, binned by intensity of exposure, against a baseline bin of zero killed. Intensity measures are from the Global Terrorism Database.}
 \label{fig:killbars1}
@@ -478,7 +483,7 @@ In Roshan's call detail records, about 45\% of user locations are imputed. Accor
 \begin{figure}[h]
     \centering
     \caption{Imputed Records in Roshan Data}
-    \includegraphics[width=0.8\textwidth]{analysis/results/figures/imputed.png}
+    \includegraphics[width=0.8\textwidth]{imputed.png}
     \vspace{0.25cm}
     \caption*{\small \textit{Notes:} Grey blocks indicate spans for which all user data was imputed. The red line represents the number of all SIGACTs, uncategorized, over the sample period.}
     \label{fig:imputed}
@@ -505,7 +510,7 @@ In Roshan's call detail records, about 45\% of user locations are imputed. Accor
 \begin{table}[h!]
     \centering
     \caption{20km violent exposures, by individual user}
-    \input{analysis/results/tables/sumstat20km1_1monthmin}
+    \input{sumstat20km1_1monthmin}
     \label{tab:sumstat_20km}
     \caption*{\footnotesize \textit{Notes:} This table is the 20km exposure analog to Table \ref{tab:sumstat}, which contains the 5km exposure statistics. Data are collapsed to the individual user-level.}
 \end{table}
@@ -539,7 +544,7 @@ In Roshan's call detail records, about 45\% of user locations are imputed. Accor
 
 \begin{table}[h]
     \centering
-    \caption{Migration and high-casualty violence: 10+ wounded events}   \input{analysis/results/tables/casualty_logit_combo_wtag}
+    \caption{Migration and high-casualty violence: 10+ wounded events}   \input{casualty_logit_combo_wtag}
     \vspace{0.25cm}
     \caption*{\footnotesize \textit{Notes:} Results from logistic regression on a cross-section of all users. The outcome of interest is a dichotomous variable equal to 1 if a user is ever categorized as a migrant, zero (0) otherwise. Coefficients are reported as the multiplicative change in odds. Columns (1) and (2) are estimated using data from a ``lenient'' implementation of the migrant classification criteria. The ``restrictive'' criteria does not classify enough migrants with varying exposure to high-casualty events for inclusion in this specification. Columns (3) and (4) estimate internal migrations as defined in \cite{blumenstock_migration_2023}. Regression controls include users' mean radius of gyration (ROG), total time in sample, share of days with phone usage, and  modal home province indicators. Standard errors are clustered at the province level. Rows in the lower panel report average marginal effects, proportional change, elasticity, and mean monthly exposure, each with respect to the independent variable of interest: users' monthly rate of exposures to violent events with at least 10 wounded, at either 5km or 20km. \\
     *** p$<$0.01, ** p$<$0.05, * p$<$0.10.}
@@ -548,7 +553,7 @@ In Roshan's call detail records, about 45\% of user locations are imputed. Accor
 
 \begin{table}[h]
     \centering
-    \caption{Migration and high-casualty violence: 10+ killed events}   \input{analysis/results/tables/casualty_logit_combo_ktag}
+    \caption{Migration and high-casualty violence: 10+ killed events}   \input{casualty_logit_combo_ktag}
     \vspace{0.25cm}
     \caption*{\footnotesize \textit{Notes:} Results from logistic regression on a cross-section of all users. The outcome of interest is a dichotomous variable equal to 1 if a user is ever categorized as a migrant, zero (0) otherwise. Coefficients are reported as the multiplicative change in odds. Columns (1) and (2) are estimated using data from a ``lenient'' implementation of the migrant classification criteria. The ``restrictive'' criteria does not classify enough migrants with varying exposure to high-casualty events for inclusion in this specification. Columns (3) and (4) estimate internal migrations as defined in \cite{blumenstock_migration_2023}. Regression controls include users' mean radius of gyration (ROG), total time in sample, share of days with phone usage, and  modal home province indicators. Standard errors are clustered at the province level. Rows in the lower panel report average marginal effects, proportional change, elasticity, and mean monthly exposure, each with respect to the independent variable of interest: users' monthly rate of exposures to violent events with at least 10 killed at either 5km or 20km.  \\
     *** p$<$0.01, ** p$<$0.05, * p$<$0.10.}
@@ -557,7 +562,7 @@ In Roshan's call detail records, about 45\% of user locations are imputed. Accor
 
 \begin{table}[h]
     \centering
-    \caption{Migration and violence (Poisson)}   \input{analysis/results/tables/simple_poisson_combo_ctrls}
+    \caption{Migration and violence (Poisson)}   \input{simple_poisson_combo_ctrls}
     \vspace{0.25cm}
     \caption*{\footnotesize \textit{Notes:} This table is the Poisson-estimated analog of Table \ref{tab:simplelogit}. Results from Poisson regression on a cross-section of all users. The outcome of interest is a dichotomous variable equal to 1 if a user is ever categorized as a migrant, zero (0) otherwise. Coefficients are reported as the multiplicative change in likelihood. Columns (1) and (2) are estimated using data from a ``lenient'' implementation of the migrant classification criteria, while columns (3) and (4) use the ``restrictive'' version. Columns (5) and (6) estimate internal migrations as defined in \cite{blumenstock_migration_2023}. Regression controls include users' mean radius of gyration (ROG), total time in sample, share of days with phone usage, and  modal home province indicators. Standard errors are clustered at the province level. Rows in the lower panel report average marginal effects, proportional change, elasticity, and mean monthly exposure, each with respect to the independent variable of interest: users' monthly rate of violent exposures at either 5km or 20km. \\
     *** p$<$0.01, ** p$<$0.05, * p$<$0.10.}
@@ -567,7 +572,7 @@ In Roshan's call detail records, about 45\% of user locations are imputed. Accor
 \begin{table}[h]
     \centering
     \caption{Migration and violence (Probit)}
-    \input{analysis/results/tables/simple_probit_combo_ctrls}
+    \input{simple_probit_combo_ctrls}
     \vspace{0.25cm}
     \caption*{\footnotesize \textit{Notes:} This table is the Probit-estimated analog of Table \ref{tab:simplelogit}. Results from Probit regression on a cross-section of all users. The outcome of interest is a dichotomous variable equal to 1 if a user is ever categorized as a migrant, zero (0) otherwise. Coefficients are reported as the multiplicative change in likelihood. Columns (1) and (2) are estimated using data from a ``lenient'' implementation of the migrant classification criteria, while columns (3) and (4) use the ``restrictive'' version. Columns (5) and (6) estimate internal migrations as defined in \cite{blumenstock_migration_2023}. Regression controls include users' mean radius of gyration (ROG), total time in sample, share of days with phone usage, and  modal home province indicators. Standard errors are clustered at the province level. Rows in the lower panel report average marginal effects, proportional change, elasticity, and mean monthly exposure, each with respect to the independent variable of interest: users' monthly rate of violent exposures at either 5km or 20km. \\
     *** p$<$0.01, ** p$<$0.05, * p$<$0.10.}
@@ -576,7 +581,7 @@ In Roshan's call detail records, about 45\% of user locations are imputed. Accor
 
 \begin{table}[h]
     \centering
-    \caption{Migration and IED exposures}   \input{analysis/results/tables/simple_logit_combo_ied}
+    \caption{Migration and IED exposures}   \input{simple_logit_combo_ied}
     \vspace{0.25cm}
     \caption*{\small \textit{Notes:} This table is an analog of Table \ref{tab:simplelogit} where only IED events are included. Results from Logit regression on a cross-section of all users. The outcome of interest is a dichotomous variable equal to 1 if a user is ever categorized as a migrant, zero (0) otherwise. Coefficients are reported as the multiplicative change in odds. Columns (1) and (2) are estimated using data from a ``lenient'' implementation of the migrant classification criteria, while columns (3) and (4) use the ``restrictive'' version. Columns (5) and (6) estimate internal migrations as defined in \cite{blumenstock_migration_2023}. Regression controls include users' mean radius of gyration (ROG), total time in sample, share of days with phone usage, and  modal home province indicators. Standard errors are clustered at the province level. Rows in the lower panel report average marginal effects, proportional change, elasticity, and mean monthly exposure, each with respect to the independent variable of interest: users' monthly rate of IED exposures at either 5km or 20km. \\
     *** p$<$0.01, ** p$<$0.05, * p$<$0.10.}
@@ -586,7 +591,7 @@ In Roshan's call detail records, about 45\% of user locations are imputed. Accor
 \begin{table}[htbp]
     \centering
     \caption{Migration and High-Casualty Violence}   
-    \input{analysis/results/tables/bands_logit_sigact}
+    \input{bands_logit_sigact}
     \vspace{0.25cm}
     \caption*{\small \textit{Notes:} Results from logistic regression on a cross-section of all users. The outcome of interest is a dichotomous variable equal to 1 if a user is ever categorized as a migrant, zero (0) otherwise. Coefficients are reported as the multiplicative change in odds. Columns (1) and (2) are estimated using data from a ``lenient'' implementation of the migrant classification criteria. The ``restrictive'' criteria does not classify enough migrants with varying exposure to high-casualty events for inclusion in this specification. Columns (3) and (4) estimate internal migrations as defined in \cite{blumenstock_migration_2023}. Regression controls include users' mean radius of gyration (ROG), total time in sample, share of days with phone usage, and  modal home province indicators. Standard errors are clustered at the province level. Rows in the lower panel report average marginal effects, proportional change, elasticity, and mean monthly exposure, each with respect to the independent variables of interest: users' monthly rate of exposures to violent events in the Global Terrorism Database, binned by the number of killed.\\
     *** p$<$0.01, ** p$<$0.05, * p$<$0.10.}
@@ -595,7 +600,7 @@ In Roshan's call detail records, about 45\% of user locations are imputed. Accor
 
 \begin{table}[h]
     \centering
-    \caption{Do migrants experience more violence?}   \input{analysis/results/tables/sanitycheck}
+    \caption{Do migrants experience more violence?}   \input{sanitycheck}
     \vspace{0.25cm}
     \caption*{\small \textit{Notes:} This table shows a summary of violent exposure rates by migration status. Under both the lenient and restrictive classification, those coded as external migrants have higher rates of exposure to the insurgency. The difference between internal migrants and non-migrants is not statistically different from zero. \\
     *** p$<$0.01, ** p$<$0.05, * p$<$0.10.}
@@ -604,7 +609,7 @@ In Roshan's call detail records, about 45\% of user locations are imputed. Accor
 
 \begin{table}[h]
     \centering
-    \caption{Test of \cite{bohra-mishra_individual_2011}}   \input{analysis/results/tables/quadtratic}
+    \caption{Test of \cite{bohra-mishra_individual_2011}}   \input{quadtratic}
     \vspace{0.25cm}
     \caption*{\small \textit{Notes:} Results from logistic regression on a cross-section of all users. The outcome of interest is a dichotomous variable equal to 1 if a user is ever categorized as a migrant, zero (0) otherwise. Coefficients are reported as the multiplicative change in odds. Columns (1) and (2) are estimated using data from a ``lenient'' implementation of the migrant classification criteria, while columns (3) and (4) use the ``restrictive'' version. Columns (5) and (6) estimate internal migrations as defined in \cite{blumenstock_migration_2023}. Regression controls include users' mean radius of gyration (ROG), total time in sample, share of days with phone usage, and  modal home province indicators. Standard errors are clustered at the province level. Rows in the lower panel report average marginal effects, proportional change, elasticity, and mean monthly exposure, each with respect to the independent variable of interest: users' monthly rate of violent exposures at either 5km or 20km. To be consistent with the results of \cite{bohra-mishra_individual_2011} and the general threshold theory of violence and migration, the coefficient of the linear exposure variable would report a value less than one (in multiplicative odds), and the corresponding quadratic would be greater than one.\\
     *** p$<$0.01, ** p$<$0.05, * p$<$0.10.}
