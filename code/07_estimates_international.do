@@ -687,8 +687,8 @@ dtable vpermon_5km vpermon_20km, by(intevermig, nototals test) export("$tables/s
 *threshold? test of bohra massey 2011
 gen sqvpm5 = vpermon_5km^2
 gen sqvpm20 = vpermon_20km^2
-lab var sqvpm5 "(5km Exposure)^2"
-lab var sqvpm20 "(20km Exposure)^2"
+lab var sqvpm5 "$(\text{5km Exposure})^2$"
+lab var sqvpm20 "$(\text{20km Exposure})^2$"
 
 est clear
 eststo lax5: logit potmig vpermon_5km sqvpm5 meanrog count_obs i.mreg, cluster(mprov) or
