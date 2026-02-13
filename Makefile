@@ -176,8 +176,6 @@ MAIN_FIGURES := $(F)/migration_levels_ctrls.png \
                 $(F)/migration_elasticities_ctrls20.png \
                 $(F)/nonmig_elasticities_ctrls.png \
                 $(F)/nonmig_elasticities_ctrls20.png \
-                $(F)/migration_dydx_ctrls.png \
-                $(F)/nonmig_dydx_ctrls.png
 
 $(MAIN_TABLES) $(MAIN_FIGURES) &: $(D)/VFD_restricted_1monthmin_with_migration.dta \
                                  $(C)/07_estimates_international.do $(C)/_config.do
