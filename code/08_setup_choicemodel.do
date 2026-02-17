@@ -145,7 +145,7 @@ eststo strict5cmc: cmclogit chosen2, casevars(vpermon_5km meanrog count_obs i.mr
 	quietly su potmig2
 	estadd scalar samp_mean = r(mean)*100
 	estadd scalar bigN = r(N)
-	quietly count if potmig==1
+	quietly count if potmig2==1
 	estadd scalar liln = r(N)
 	quietly su vpermon_5km
 	estadd scalar x_mean = r(mean)
@@ -163,7 +163,7 @@ eststo strict20cmc: cmclogit chosen2, casevars(vpermon_20km meanrog count_obs i.
 	quietly su potmig2
 	estadd scalar samp_mean = r(mean)*100
 	estadd scalar bigN = r(N)
-	quietly count if potmig==1
+	quietly count if potmig2==1
 	estadd scalar liln = r(N)
 	quietly su vpermon_20km
 	estadd scalar x_mean = r(mean)
